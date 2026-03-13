@@ -7,7 +7,7 @@
   };
 </script>
 
-<main class="p-8">
+<main class="p-8 font-mono">
   {#each Array.from({ length: 15 }, (_, x: number) => x + 1) as i}
     <div
       style:padding-left={`${dist(i / 16) * 24}px`}
@@ -16,10 +16,10 @@
       {new Fraction(i / 16).toFraction()}
     </div>
   {/each}
-  {#each Array.from({ length: 4096 }, (_, x: number) => x + 1).filter((n) => n % 2 === 0 || n === 1) as i}
+  {#each Array.from({ length: 2 ** 16 }, (_, x: number) => x + 1).filter((n) => n % 2 === 0 || n === 1) as i}
     <div
       style:padding-left={`${dist(i) * 24}px`}
-      style:font-size={`${32 - dist(i) * 2}px`}
+      style:font-size={`${32 - dist(i) * 1.5}px`}
     >
       {i}
     </div>
