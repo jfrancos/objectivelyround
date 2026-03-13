@@ -29,5 +29,8 @@
 		"packageManager": {
 			"name": "pnpm"
 		}
+	},
+	"dependencies": {
+		"fraction.js": "^5.3.4"
 	}
 }
