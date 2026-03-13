@@ -18,7 +18,7 @@
   {/each}
   {#each Array.from({ length: 2 ** 16 }, (_, x: number) => x + 1).filter((n) => n % 2 === 0 || n === 1) as i}
     <div
-      style:padding-left={`${dist(i) * 24}px`}
+      style:padding-left={`${dist(i) * 16}px`}
       style:font-size={`${32 - dist(i) * 1.5}px`}
     >
       {i}
