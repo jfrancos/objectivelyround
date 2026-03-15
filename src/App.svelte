@@ -1,6 +1,10 @@
 <script lang="ts">
   import { tabs } from "slidytabs";
-  import { Input } from "$lib/components/ui/input";
+  import {
+    InputGroup,
+    InputGroupAddon,
+    InputGroupInput,
+  } from "$lib/components/ui/input-group";
   import Tabs from "$lib/components/ui/tabs/tabs.svelte";
   import TabsList from "$lib/components/ui/tabs/tabs-list.svelte";
   import TabsTrigger from "$lib/components/ui/tabs/tabs-trigger.svelte";
@@ -75,22 +79,37 @@
   <header
     class="sticky top-0 z-10 shadow-lg bg-white w-full py-6 px-8 flex justify-between"
   >
-    <Input
-      class="w-32"
-      autofocus
-      bind:value={input}
-      onkeydown={({ key }) => {
-        if (key === "Enter") {
-          const number = integers.find(
-            (item) => String(item.value / scale.mult) === input,
-          );
-          // Stricter rule??
-          if (number != null) {
-            chosenDistance = number.distance;
+    <InputGroup class="w-40">
+      <InputGroupInput
+        autofocus
+        bind:value={input}
+        onkeydown={({ key }) => {
+          chosenDistance = undefined;
+          if (key === "Enter") {
+            const number = integers.find(
+              (item) => String(item.value / scale.mult) === input,
+            );
+            // Stricter rule??
+            if (number != null) {
+              chosenDistance = number.distance;
+            }
           }
-        }
-      }}
-    />
+        }}
+      />
+      {#if chosenDistance}
+        <InputGroupAddon align="inline-end">
+          <div class="bg-neutral-600 text-neutral-50 rounded text-xs px-3 py-1">
+            <span class="leading-0">Esc</span>
+          </div>
+        </InputGroupAddon>
+      {:else if integers.find((item) => String(item.value / scale.mult) === input)}
+        <InputGroupAddon align="inline-end">
+          <div class="bg-neutral-600 text-neutral-50 rounded text-xs px-3 py-1">
+            <span class="-mb-0.5">↵</span>
+          </div>
+        </InputGroupAddon>
+      {/if}
+    </InputGroup>
     <Tabs
       bind:value={
         () => scale.label,
