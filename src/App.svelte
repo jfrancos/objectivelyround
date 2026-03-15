@@ -1,5 +1,4 @@
 <script lang="ts">
-  import Fraction from "fraction.js";
   import { tabs } from "slidytabs";
   import { Input } from "$lib/components/ui/input";
   import Tabs from "$lib/components/ui/tabs/tabs.svelte";
@@ -11,14 +10,19 @@
     return Math.clz32(x & -x) - Math.clz32(x);
   };
 
-  // const fractions = Array.from({ length: 16 }, (_, x: number) => ({
-  //   value: new Fraction(x + 1, 16).toFraction(),
-  //   distance: dist(x + 1),
-  // }));
-  const integers = Array.from({ length: 2 ** 12 }, (_, x: number) => ({
-    value: x + 1,
-    distance: dist(x + 1),
-  }));
+  let chosenDistance = $state<number>();
+
+  const integers = $derived(
+    Array.from({ length: 2 ** 12 }, (_, x: number) => ({
+      value: x + 1,
+      distance: dist(x + 1),
+    })).filter((item) =>
+      chosenDistance
+        ? item.distance < chosenDistance ||
+          String(item.value / scale.mult) === input
+        : true,
+    ),
+  );
 
   const scales = [
     { label: "px", mult: 1 },
@@ -26,55 +30,67 @@
     { label: "rem (16px)", mult: 16 },
   ];
 
-  type Scale = "tw" | "px" | "rem";
   let scale = $state(scales[1]);
   let input = $state("");
 
   const scrollToInput = () => {
+    const hasInput = input.trim() !== "";
     const valuesDivs = Array.from(document.querySelectorAll("div.value"));
-    // if (input === "") {
-    //   valuesDivs[0].scrollIntoView({
-    //     behavior: "instant",
-    //     block: "center",
-    //   });
-    // }
-    const targets =
-      input.trim() === ""
-        ? []
-        : valuesDivs.filter((el) => el.textContent.startsWith(input));
+    const targets = hasInput
+      ? valuesDivs.filter((el) => el.textContent.startsWith(input))
+      : [];
 
-    const notTargets =
-      input.trim() === ""
-        ? valuesDivs
-        : valuesDivs.filter((el) => !el.textContent.startsWith(input));
+    const notTargets = hasInput
+      ? valuesDivs.filter((el) => !el.textContent.startsWith(input))
+      : valuesDivs;
 
     for (const div of targets) {
       div.classList.add("bg-yellow-300");
     }
-
     for (const div of notTargets) {
       div.classList.remove("bg-yellow-300");
     }
 
-    targets[0]?.scrollIntoView({
-      // behavior: "smooth",
+    (hasInput ? targets[0] : valuesDivs[0])?.scrollIntoView({
       block: "center",
     });
   };
 
   $effect(() => {
     void scale;
+    void chosenDistance;
     scrollToInput();
   });
-
-  console.log(Math.max(...integers.map((item) => item.distance)));
 </script>
+
+<svelte:window
+  onkeydown={({ key }) => {
+    if (key === "Escape") {
+      chosenDistance = undefined;
+    }
+  }}
+/>
 
 <main>
   <header
     class="sticky top-0 z-10 shadow-lg bg-white w-full py-6 px-8 flex justify-between"
   >
-    <Input class="w-32" autofocus bind:value={input} />
+    <Input
+      class="w-32"
+      autofocus
+      bind:value={input}
+      onkeydown={({ key }) => {
+        if (key === "Enter") {
+          const number = integers.find(
+            (item) => String(item.value / scale.mult) === input,
+          );
+          // Stricter rule??
+          if (number != null) {
+            chosenDistance = number.distance;
+          }
+        }
+      }}
+    />
     <Tabs
       bind:value={
         () => scale.label,
