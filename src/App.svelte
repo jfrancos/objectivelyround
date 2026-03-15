@@ -10,17 +10,19 @@
     value: new Fraction(x + 1, 16).toFraction(),
     distance: dist(x + 1),
   }));
-  const integers = Array.from({ length: 2 ** 14 }, (_, x: number) => ({
+  const integers = Array.from({ length: 2 ** 12 }, (_, x: number) => ({
     value: (x + 1) * 2,
     distance: dist((x + 1) * 2),
   }));
+
+  console.log(Math.max(...integers.map((item) => item.distance)));
 </script>
 
 <main class="p-8 font-mono">
   {#each [...fractions, ...integers] as { value, distance }}
     <div
-      style:padding-left={`${distance * 16}px`}
-      style:font-size={`${48 - distance * 3}px`}
+      style:padding-left={`${distance}rem`}
+      style:font-size={`${40 - distance * 2}px`}
     >
       {value}
     </div>
