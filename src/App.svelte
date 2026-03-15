@@ -18,10 +18,10 @@
   console.log(Math.max(...integers.map((item) => item.distance)));
 </script>
 
-<main class="p-8 font-mono">
+<main class="p-8 font-mono max-w-80">
   {#each [...fractions, ...integers] as { value, distance }}
     <div
-      style:padding-left={`${distance}rem`}
+      style:padding-left={`${distance * 8}%`}
       style:font-size={`${40 - distance * 2}px`}
     >
       {value}
