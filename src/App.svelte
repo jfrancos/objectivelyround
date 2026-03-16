@@ -49,31 +49,27 @@
 
   const scrollToInput = () => {
     const hasInput = input.trim() !== "";
-    const valuesDivs = Array.from(document.querySelectorAll("div.value"));
-    const targets = hasInput
-      ? valuesDivs.filter((el) => el.textContent.startsWith(input))
-      : [];
+    if (!hasInput) {
+      scrollTo(0, 0);
+    } else {
+      const valuesDivs = Array.from(document.querySelectorAll("div.value"));
+      const target = valuesDivs.find((el) => el.textContent.startsWith(input));
 
-    const notTargets = hasInput
-      ? valuesDivs.filter((el) => !el.textContent.startsWith(input))
-      : valuesDivs;
-
-    for (const div of targets) {
-      div.classList.add("bg-yellow-300");
+      target?.scrollIntoView({
+        block: "center",
+      });
     }
-    for (const div of notTargets) {
-      div.classList.remove("bg-yellow-300");
-    }
-
-    (hasInput ? targets[0] : valuesDivs[0])?.scrollIntoView({
-      block: "center",
-    });
   };
 
   $effect(() => {
     void scale;
     void chosenDistance;
     scrollToInput();
+  });
+
+  $effect(() => {
+    void input;
+    chosenDistance = undefined;
   });
 
   const showEsc = $derived(chosenDistance !== undefined);
@@ -109,7 +105,6 @@
         autofocus
         bind:value={input}
         onkeydown={({ key }) => {
-          chosenDistance = undefined;
           if (key === "Enter") {
             focus();
           }
@@ -217,7 +212,14 @@
             style:padding-left={`${distance * 8}%`}
             style:font-size={`${40 - distance * 2}px`}
           >
-            <div class="value size-full">
+            <div
+              class={[
+                "value size-full",
+                input &&
+                  String(value / scale.mult).startsWith(input.trim()) &&
+                  "bg-yellow-300",
+              ]}
+            >
               {value / scale.mult}
             </div>
           </div>
