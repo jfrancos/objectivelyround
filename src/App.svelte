@@ -142,7 +142,8 @@
           <p>
             When small visual differences are imperceptible, choosing from a
             <strong>tiered set of binary subdivision points</strong>
-            (powers of two and their binary subdivisions) provides an objective tie-breaker.
+            (powers of two and their binary subdivisions) provides an objective tie-breaker
+            and helps prevent decision fatigue.
           </p>
 
           <p>
