@@ -27,7 +27,7 @@
   let chosenDistance = $state<number>();
 
   const integers = $derived(
-    Array.from({ length: 2 ** 12 }, (_, x: number) => ({
+    Array.from({ length: 2 ** 13 }, (_, x: number) => ({
       value: x + 1,
       distance: dist(x + 1),
     })).filter((item) =>
@@ -214,7 +214,7 @@
           >
             <div
               class={[
-                "value size-full",
+                "value size-full px-2",
                 input &&
                   String(value / scale.mult).startsWith(input.trim()) &&
                   "bg-yellow-300",
