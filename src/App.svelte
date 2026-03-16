@@ -1,6 +1,6 @@
 <script lang="ts">
   import { tabs } from "slidytabs";
-  import { buttonVariants } from "$lib/components/ui/button";
+  import { Button, buttonVariants } from "$lib/components/ui/button";
   import {
     InputGroup,
     InputGroupAddon,
@@ -11,9 +11,13 @@
     PopoverContent,
     PopoverTrigger,
   } from "$lib/components/ui/popover";
-  import Tabs from "$lib/components/ui/tabs/tabs.svelte";
-  import TabsList from "$lib/components/ui/tabs/tabs-list.svelte";
-  import TabsTrigger from "$lib/components/ui/tabs/tabs-trigger.svelte";
+  import { Tabs, TabsList, TabsTrigger } from "$lib/components/ui/tabs";
+  import {
+    Tooltip,
+    TooltipContent,
+    TooltipProvider,
+    TooltipTrigger,
+  } from "$lib/components/ui/tooltip";
 
   const dist = (x: number) => {
     while (!Number.isInteger(x)) x *= 2;
@@ -27,7 +31,7 @@
       value: x + 1,
       distance: dist(x + 1),
     })).filter((item) =>
-      chosenDistance
+      chosenDistance !== undefined
         ? item.distance < chosenDistance ||
           String(item.value / scale.mult) === input
         : true,
@@ -71,6 +75,20 @@
     void chosenDistance;
     scrollToInput();
   });
+
+  const showEsc = $derived(chosenDistance !== undefined);
+  const showEnter = $derived(
+    integers.some((item) => String(item.value / scale.mult) === input),
+  );
+
+  const focus = () => {
+    const number = integers.find(
+      (item) => String(item.value / scale.mult) === input,
+    );
+    if (number != null) {
+      chosenDistance = number.distance;
+    }
+  };
 </script>
 
 <svelte:window
@@ -87,33 +105,50 @@
   >
     <InputGroup class="w-40">
       <InputGroupInput
+        placeholder="Target"
         autofocus
         bind:value={input}
         onkeydown={({ key }) => {
           chosenDistance = undefined;
           if (key === "Enter") {
-            const number = integers.find(
-              (item) => String(item.value / scale.mult) === input,
-            );
-            // Stricter rule??
-            if (number != null) {
-              chosenDistance = number.distance;
-            }
+            focus();
           }
         }}
       />
-      {#if chosenDistance}
-        <InputGroupAddon align="inline-end">
-          <div class="bg-neutral-600 text-neutral-50 rounded text-xs px-3 py-1">
-            <span class="leading-0">Esc</span>
-          </div>
-        </InputGroupAddon>
-      {:else if integers.find((item) => String(item.value / scale.mult) === input)}
-        <InputGroupAddon align="inline-end">
-          <div class="bg-neutral-600 text-neutral-50 rounded text-xs px-3 py-1">
-            <span class="-mb-0.5">↵</span>
-          </div>
-        </InputGroupAddon>
+      {#if showEsc || showEnter}
+        <TooltipProvider>
+          <Tooltip>
+            <TooltipTrigger>
+              <InputGroupAddon align="inline-end">
+                <Button
+                  size="sm"
+                  onclick={() => {
+                    console.log("click");
+                    if (showEsc) {
+                      chosenDistance = undefined;
+                    } else if (showEnter) {
+                      focus();
+                    }
+                  }}
+                  class="bg-neutral-600 text-neutral-50 rounded text-xs h-6"
+                >
+                  {#if showEsc}
+                    <span class="leading-0">Esc</span>
+                  {:else if showEnter}
+                    <span class="-mb-0.5">↵</span>
+                  {/if}
+                </Button>
+              </InputGroupAddon>
+            </TooltipTrigger>
+            <TooltipContent>
+              {#if showEsc}
+                Show all values
+              {:else if showEnter}
+                Focus on <span class="font-bold">only</span> rounder values
+              {/if}
+            </TooltipContent>
+          </Tooltip>
+        </TooltipProvider>
       {/if}
     </InputGroup>
     <Tabs
