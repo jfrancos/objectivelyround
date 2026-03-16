@@ -136,7 +136,7 @@
     <div class="w-40 flex justify-end">
       <Popover>
         <PopoverTrigger class={[buttonVariants({ variant: "ghost" })]}>
-          <span class="i-lucide-info size-5"></span>
+          <span aria-label="info" class="i-lucide-info size-5"></span>
         </PopoverTrigger>
         <PopoverContent class="max-w-sm text-sm leading-relaxed space-y-3">
           <p>
