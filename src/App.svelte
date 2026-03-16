@@ -36,7 +36,7 @@
 
   const scales = [
     { label: "px", mult: 1 },
-    { label: "TW (4px)", mult: 4 },
+    { label: "tw (4px)", mult: 4 },
     { label: "rem (16px)", mult: 16 },
   ];
 
