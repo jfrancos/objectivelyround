@@ -85,12 +85,16 @@
       chosenDistance = number.distance;
     }
   };
+
+  let inputRef = $state<HTMLInputElement | null>(null);
 </script>
 
 <svelte:window
   onkeydown={({ key }) => {
     if (key === "Escape") {
       chosenDistance = undefined;
+    } else if (input === "" && key.match(/[\d]/)) {
+      inputRef?.focus();
     }
   }}
 />
@@ -101,9 +105,17 @@
   >
     <InputGroup class="w-40">
       <InputGroupInput
+        bind:ref={inputRef}
         placeholder="Target"
         autofocus
-        bind:value={input}
+        bind:value={
+          () => input,
+          (next) => {
+            if (Number.isFinite(Number(next)) && next.trim() === next) {
+              input = next;
+            }
+          }
+        }
         onkeydown={({ key }) => {
           if (key === "Enter") {
             focus();
