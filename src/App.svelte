@@ -1,16 +1,12 @@
 <script lang="ts">
   import { tabs } from "slidytabs";
-  import { Button, buttonVariants } from "$lib/components/ui/button";
+  import { Button } from "$lib/components/ui/button";
   import {
     InputGroup,
     InputGroupAddon,
     InputGroupInput,
   } from "$lib/components/ui/input-group";
-  import {
-    Popover,
-    PopoverContent,
-    PopoverTrigger,
-  } from "$lib/components/ui/popover";
+  import { Separator } from "$lib/components/ui/separator";
   import { Tabs, TabsList, TabsTrigger } from "$lib/components/ui/tabs";
   import {
     Tooltip,
@@ -18,13 +14,13 @@
     TooltipProvider,
     TooltipTrigger,
   } from "$lib/components/ui/tooltip";
-
-  const dist = (x: number) => {
-    while (!Number.isInteger(x)) x *= 2;
-    return Math.clz32(x & -x) - Math.clz32(x);
-  };
+  import Popover from "./Popover.svelte";
+  import { dist, scales } from "./util";
 
   let chosenDistance = $state<number>();
+  let scale = $state(scales[1]);
+  let input = $state("");
+  let inputRef = $state<HTMLInputElement | null>(null);
 
   const integers = $derived(
     Array.from({ length: 2 ** 13 }, (_, x: number) => ({
@@ -37,15 +33,6 @@
         : true,
     ),
   );
-
-  const scales = [
-    { label: "px", mult: 1 },
-    { label: "tw (4px)", mult: 4 },
-    { label: "rem (16px)", mult: 16 },
-  ];
-
-  let scale = $state(scales[1]);
-  let input = $state("");
 
   const scrollToInput = () => {
     const hasInput = input.trim() !== "";
@@ -85,8 +72,6 @@
       chosenDistance = number.distance;
     }
   };
-
-  let inputRef = $state<HTMLInputElement | null>(null);
 </script>
 
 <svelte:window
@@ -99,9 +84,9 @@
   }}
 />
 
-<main>
+<main class="relative">
   <header
-    class="sticky top-0 z-10 shadow-lg bg-white w-full py-6 px-8 flex justify-between"
+    class="sticky top-0 z-10 shadow-lg bg-white w-full py-6 px-8 flex justify-between z-20"
   >
     <InputGroup class="w-40">
       <InputGroupInput
@@ -176,57 +161,45 @@
       </TabsList>
     </Tabs>
     <div class="w-40 flex justify-end">
-      <Popover>
-        <PopoverTrigger class={[buttonVariants({ variant: "ghost" })]}>
-          <span aria-label="info" class="i-lucide-info size-5"></span>
-        </PopoverTrigger>
-        <PopoverContent class="max-w-sm text-sm leading-relaxed space-y-3">
-          <p>
-            When small visual differences are imperceptible, choosing from a
-            <strong>tiered set of binary subdivision points</strong>
-            (powers of two and their binary subdivisions) provides an objective tie-breaker
-            and helps prevent decision fatigue.
-          </p>
-
-          <p>
-            Instead of debating arbitrary values like <code>932px</code> vs
-            <code>937px</code>, you snap to a nearby “round” value like
-            <code>936px</code>.
-          </p>
-
-          <p>
-            An added benefit is that fewer unique values make their way into the
-            stylesheet, reducing both design entropy and the total number of CSS
-            classes that need to be shipped.
-          </p>
-
-          <p>
-            This is the idea behind <strong>Tailwind’s spacing scale</strong>:
-            most designs can be expressed with a small set of well-chosen
-            values, and arbitrary values are there only when you truly need
-            them.
-          </p>
-        </PopoverContent>
-      </Popover>
+      <Popover />
     </div>
   </header>
+  <div class="sticky h-0 top-23 -ml-3 mr-3 font-mono text-sm">
+    {#each { length: 13 }, i}
+      <div class="absolute px-16 inset-0">
+        <div class="w-4 text-end" style={`margin-left: ${i * 8}%`}>
+          {i}
+        </div>
+      </div>
+    {/each}
+  </div>
+
   <div class="font-mono py-8 color-neutral-800 bg-[oklch(97.5%.075_300)]">
     <div class=".max-w-80">
+      {#each { length: 13 }, i}
+        <div class="absolute px-16 inset-0 inset-l-2 -inset-r-2">
+          <Separator
+            orientation="vertical"
+            class="bg-neutral-500/50"
+            style={`margin-left: ${i * 8}%`}
+          />
+        </div>
+      {/each}
       {#each integers as { value, distance }}
         <div
           class="flex items-center px-16"
           style:background-color={`oklch(${97.5 - 2.5 * distance}% 0.075 300)`}
         >
-          <div class="absolute w-16 p-2 shrink-0 left-0">
+          <!-- <div class="absolute w-16 p-2 shrink-0 left-0">
             {distance}
-          </div>
+          </div> -->
           <div
             style:padding-left={`${distance * 8}%`}
             style:font-size={`${40 - distance * 2}px`}
           >
             <div
               class={[
-                "value size-full px-2",
+                "value size-full px-2 z-10 relative",
                 input &&
                   String(value / scale.mult).startsWith(input.trim()) &&
                   "bg-yellow-300",
