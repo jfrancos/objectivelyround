@@ -15,3 +15,5 @@ export type WithoutChildrenOrChild<T> = WithoutChildren<WithoutChild<T>>;
 export type WithElementRef<T, U extends HTMLElement = HTMLElement> = T & {
 	ref?: U | null;
 };
+
+export const dist = (x: number) => Math.clz32(x & -x) - Math.clz32(x);

@@ -1,5 +1,4 @@
 <script lang="ts">
-  import { tabs } from "slidytabs";
   import { Button } from "$lib/components/ui/button";
   import {
     InputGroup,
@@ -7,18 +6,18 @@
     InputGroupInput,
   } from "$lib/components/ui/input-group";
   import { Separator } from "$lib/components/ui/separator";
-  import { Tabs, TabsList, TabsTrigger } from "$lib/components/ui/tabs";
   import {
     Tooltip,
     TooltipContent,
     TooltipProvider,
     TooltipTrigger,
   } from "$lib/components/ui/tooltip";
+  import { dist } from "./lib/utils";
   import Popover from "./Popover.svelte";
-  import { dist, scales } from "./util";
+  import ScaleChooser from "./ScaleChooser.svelte";
 
   let chosenDistance = $state<number>();
-  let scale = $state(scales[1]);
+  let scale = $state(1);
   let input = $state("");
   let inputRef = $state<HTMLInputElement | null>(null);
 
@@ -28,8 +27,7 @@
       distance: dist(x + 1),
     })).filter((item) =>
       chosenDistance !== undefined
-        ? item.distance < chosenDistance ||
-          String(item.value / scale.mult) === input
+        ? item.distance < chosenDistance || String(item.value / scale) === input
         : true,
     ),
   );
@@ -61,12 +59,12 @@
 
   const showEsc = $derived(chosenDistance !== undefined);
   const showEnter = $derived(
-    integers.some((item) => String(item.value / scale.mult) === input),
+    integers.some((item) => String(item.value / scale) === input),
   );
 
   const focus = () => {
     const number = integers.find(
-      (item) => String(item.value / scale.mult) === input,
+      (item) => String(item.value / scale) === input,
     );
     if (number != null) {
       chosenDistance = number.distance;
@@ -143,23 +141,7 @@
         </TooltipProvider>
       {/if}
     </InputGroup>
-    <Tabs
-      bind:value={
-        () => scale.label,
-        (next) => {
-          scale = scales.find((item) => item.label === next) ?? scales[1];
-        }
-      }
-      {@attach tabs()}
-    >
-      <TabsList>
-        {#each scales as scale}
-          <TabsTrigger class="min-w-0 flex-1 px-6" value={scale.label}>
-            {scale.label}
-          </TabsTrigger>
-        {/each}
-      </TabsList>
-    </Tabs>
+    <ScaleChooser bind:scale />
     <div class="w-40 flex justify-end">
       <Popover />
     </div>
@@ -201,11 +183,11 @@
               class={[
                 "value size-full px-2 z-10 relative",
                 input &&
-                  String(value / scale.mult).startsWith(input.trim()) &&
+                  String(value / scale).startsWith(input.trim()) &&
                   "bg-yellow-300",
               ]}
             >
-              {value / scale.mult}
+              {value / scale}
             </div>
           </div>
         </div>
