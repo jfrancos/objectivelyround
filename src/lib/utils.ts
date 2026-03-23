@@ -15,6 +15,7 @@ export type WithoutChildrenOrChild<T> = WithoutChildren<WithoutChild<T>>;
 export type WithElementRef<T, U extends HTMLElement = HTMLElement> = T & {
 	ref?: U | null;
 };
+
 type Item = {
 	number: number;
 	timesDivisibleBy2: number;
@@ -46,9 +47,12 @@ const findNext = (
 
 	if (number < 1) return;
 
+	const exponent = min + timesDivisibleBy2(number / factor);
+
 	return {
 		number,
-		timesDivisibleBy2: min + timesDivisibleBy2(number / factor),
+		timesDivisibleBy2: exponent,
+		factor: number / 2 ** exponent,
 	};
 };
 
@@ -56,6 +60,8 @@ export const getNeighbors = (target: number): Item[] => {
 	const middle = {
 		number: target,
 		timesDivisibleBy2: timesDivisibleBy2(target),
+		factor: target / 2 ** timesDivisibleBy2(target),
+		delta: 0,
 	};
 
 	const walk = (step: -1 | 1) => {
@@ -66,7 +72,10 @@ export const getNeighbors = (target: number): Item[] => {
 		while (true) {
 			const next = findNext(start, step, min);
 			if (!next) return items;
-			items[step === -1 ? "unshift" : "push"](next);
+			items[step === -1 ? "unshift" : "push"]({
+				...next,
+				delta: next.number - target,
+			});
 			if (isPowerOf2(next.number)) return items;
 			min = next.timesDivisibleBy2 + 1;
 			start = next.number + step;

@@ -8,6 +8,12 @@ importers:
 
   .:
     dependencies:
+      '@fontsource/libertinus-math':
+        specifier: ^5.2.1
+        version: 5.2.1
+      '@fontsource/noto-sans-math':
+        specifier: ^5.2.8
+        version: 5.2.8
       '@iconify/json':
         specifier: ^2.2.453
         version: 2.2.453
@@ -142,6 +148,12 @@ packages:
 
   '@floating-ui/utils@0.2.11':
     resolution: {integrity: sha512-RiB/yIh78pcIxl6lLMG0CgBXAZ2Y0eVHqMPYugu+9U0AeT6YBeiJpf7lbdJNIugFP5SIjwNRgo4DhR1Qxi26Gg==}
+
+  '@fontsource/libertinus-math@5.2.1':
+    resolution: {integrity: sha512-vw43s1n3gHWJ+xgtDlW09pC++/Z2GBzPmhgkA9bho2JgqrRbEos598KA7JncXUAYmt+zk/YCHPRbYmEbp0Vz7Q==}
+
+  '@fontsource/noto-sans-math@5.2.8':
+    resolution: {integrity: sha512-LKP8MXf5if2NoQcpgkIWS3SKGk7b4IZCLKTTHEFmHuy1g/n5KKg21+wk4cTKEoJZtHaMo13jwd4Hw8TWxaz8gQ==}
 
   '@iconify/json@2.2.453':
     resolution: {integrity: sha512-LL3avJyZUFtB/Ts1WbpunFZ58XnodcQn0xMLQbm9gxuuZNpnt2D89n+CstNHpqheynDz+nZVSSvKko1bFXBOTA==}
@@ -1038,6 +1050,10 @@ snapshots:
       '@floating-ui/utils': 0.2.11
 
   '@floating-ui/utils@0.2.11': {}
+
+  '@fontsource/libertinus-math@5.2.1': {}
+
+  '@fontsource/noto-sans-math@5.2.8': {}
 
   '@iconify/json@2.2.453':
     dependencies:

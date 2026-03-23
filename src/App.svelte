@@ -1,11 +1,8 @@
 <script lang="ts">
   import { onMount } from "svelte";
   import { InputGroup, InputGroupInput } from "$lib/components/ui/input-group";
-  import { Separator } from "$lib/components/ui/separator";
   import { getNeighbors } from "./lib/utils";
 
-  let chosenDistance = $state<number>();
-  let scale = $state(1);
   let input = $state("1337");
   let inputRef = $state<HTMLInputElement | null>(null);
 
@@ -14,45 +11,20 @@
 
   const EXP = $derived(Math.log2(neighbors[0].number) + 2);
 
-  const scrollToInput = () => {
-    const hasInput = input.trim() !== "";
-    if (!hasInput) {
-      scrollTo(0, 0);
-    } else {
-      const valuesDivs = Array.from(document.querySelectorAll("div.value"));
-      const target = valuesDivs.find((el) => el.textContent.startsWith(input));
-
-      target?.scrollIntoView({
-        block: "center",
-      });
-    }
-  };
-
   onMount(() => inputRef?.focus());
 
-  $effect(() => {
-    void scale;
-    void chosenDistance;
-    scrollToInput();
-  });
-
-  $effect(() => {
-    void input;
-    chosenDistance = undefined;
-  });
+  $inspect(neighbors);
 </script>
 
 <svelte:window
   onkeydown={({ key }) => {
-    if (key === "Escape") {
-      chosenDistance = undefined;
-    } else if (input === "" && key.match(/[\d]/)) {
+    if (input === "" && key.match(/[\d]/)) {
       inputRef?.focus();
     }
   }}
 />
 
-<main class="relative w-full  overflow-visible">
+<main class=".relative .w-full .overflow-visible">
   <header class="sticky top-0 shadow-lg bg-white p-8 flex justify-center z-20">
     <InputGroup class="w-48">
       <InputGroupInput
@@ -74,7 +46,7 @@
       />
     </InputGroup>
   </header>
-  <div class="sticky h-0 top-23 .-ml-3 .mr-3 font-mono text-sm">
+  <!-- <div class="sticky h-0 top-23 .-ml-3 .mr-3 font-mono text-sm">
     {#each { length: EXP }, i}
       <div class="absolute .px-16 inset-0">
         <div class="w-4 text-end" style={`margin-left: ${(i / EXP) * 100}%`}>
@@ -82,10 +54,11 @@
         </div>
       </div>
     {/each}
-  </div>
+  </div> -->
 
   <div
-    class="font-mono py-8 color-neutral-800 .bg-[oklch(97.5%.075_300)] w-full overflow-visible"
+    style:grid-template-columns={`repeat(${EXP}, minmax(0, 1fr))`}
+    class="font-mono py-8 color-neutral-800 .bg-[oklch(97.5%.075_300)] .w-full .overflow-visible grid .grid-flow-row .gap-x-px"
   >
     <!-- {#each { length: EXP }, i}
       <div class="absolute .px-16 inset-0 .inset-l-2 .-inset-r-2">
@@ -96,23 +69,41 @@
         />
       </div>
     {/each} -->
-    {#each neighbors as { number, timesDivisibleBy2: distance }}
+    {#each neighbors as { number, timesDivisibleBy2: distance, delta, factor }}
       <div
-        class="w-full overflow-visible"
         style:background-color={`oklch(${97.5 - 2.5 * (EXP - distance - 1)}% 0.075 300)`}
-        style:padding-left={`${((EXP - distance - 1) / EXP) * 100}%`}
+        style:grid-column={`1 / ${EXP - distance}`}
+      ></div>
+      <div
+        class="text-right"
+        style:background-color={`oklch(${97.5 - 2.5 * (EXP - distance - 1)}% 0.075 300)`}
+        style:grid-column={`${EXP - distance} / -1`}
       >
-        <div
-          class={[
-            "value .size-fit px-2 relative .mx-16 text-xl w-full overflow-visible",
-            // input &&
-            //   String(number / scale).startsWith(input.trim()) &&
-            //   "bg-yellow-300",
-          ]}
-        >
-          {number / scale}
+        <div class="flex items-end flex-col w-fit">
+          <math class="text-neutral-700/75 text-sm font-mono">
+            <mn>{factor}</mn>
+            <mo>&times;</mo>
+            <msup>
+              <mn>2</mn>
+              <mn class="font-bold text-black text-11px">{distance}</mn>
+            </msup>
+          </math>
+          <div
+            class={[
+              "value .size-fit .px-2 relative .mx-16 text-xl w-full overflow-visible",
+              // input &&
+              //   String(number / scale).startsWith(input.trim()) &&
+              //   "bg-yellow-300",
+            ]}
+          >
+            {number}
+          </div>
+          <div class="text-11px font-bold">
+            {delta > 0 ? "+" : ""}{delta}
+          </div>
         </div>
       </div>
     {/each}
   </div>
 </main>
+<!-- // style:padding-left={`${((EXP - distance - 1) / EXP) * 100}%`} -->

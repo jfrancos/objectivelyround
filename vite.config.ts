@@ -1,6 +1,11 @@
 import path from "node:path";
 import { svelte } from "@sveltejs/vite-plugin-svelte";
-import { presetIcons, presetWind4, transformerVariantGroup } from "unocss";
+import {
+	presetIcons,
+	presetWebFonts,
+	presetWind4,
+	transformerVariantGroup,
+} from "unocss";
 import unoCSS from "unocss/vite";
 import presetAnimations from "unocss-preset-animations";
 import { presetShadcn } from "unocss-preset-shadcn";
@@ -11,7 +16,16 @@ export default defineConfig({
 	plugins: [
 		svelte(),
 		unoCSS({
-			presets: [presetWind4, presetAnimations, presetShadcn, presetIcons],
+			presets: [
+				presetWind4,
+				presetAnimations,
+				presetShadcn,
+				presetIcons,
+				presetWebFonts({
+					provider: "fontsource",
+					fonts: { math: "Noto Sans Math" },
+				}),
+			],
 			transformers: [transformerVariantGroup()],
 		}),
 	],
