@@ -50,7 +50,7 @@
     {#each neighbors as { number, exponent, delta, factor, rank }}
       <div
         class="px-4"
-        style:background-color={`oklch(${1 - (0.5 * rank) / (neighbors.length - 1)} 0.1 300)`}
+        style:background-color={`oklch(${1 - (0.375 * rank) / (neighbors.length - 1)} 0.1 300)`}
       >
         <div
           class="text-right py-2 relative w-fit"
