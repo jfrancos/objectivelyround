@@ -28,6 +28,7 @@
   <header class="sticky top-0 shadow-lg bg-white p-8 flex justify-center z-20">
     <InputGroup class="w-48">
       <InputGroupInput
+        type="number"
         bind:ref={inputRef}
         placeholder="Target"
         bind:value={
