@@ -23,7 +23,9 @@ export default defineConfig({
 				presetIcons,
 				presetWebFonts({
 					provider: "fontsource",
-					fonts: { math: "Noto Sans Math" },
+					fonts: {
+						inter: { name: "Inter" },
+					},
 				}),
 			],
 			transformers: [transformerVariantGroup()],

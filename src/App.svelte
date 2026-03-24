@@ -46,64 +46,43 @@
       />
     </InputGroup>
   </header>
-  <!-- <div class="sticky h-0 top-23 .-ml-3 .mr-3 font-mono text-sm">
-    {#each { length: EXP }, i}
-      <div class="absolute .px-16 inset-0">
-        <div class="w-4 text-end" style={`margin-left: ${(i / EXP) * 100}%`}>
-          {EXP - i - 1}
-        </div>
-      </div>
-    {/each}
-  </div> -->
-
   <div
     style:grid-template-columns={`repeat(${EXP}, minmax(0, 1fr))`}
-    class="font-mono py-8 color-neutral-800 .bg-[oklch(97.5%.075_300)] .w-full .overflow-visible grid .grid-flow-row .gap-x-px"
+    class="color-neutral-800 grid"
   >
-    <!-- {#each { length: EXP }, i}
-      <div class="absolute .px-16 inset-0 .inset-l-2 .-inset-r-2">
-        <Separator
-          orientation="vertical"
-          class="bg-neutral-500/50"
-          style={`margin-left: ${(i / EXP) * 100}%`}
-        />
-      </div>
-    {/each} -->
     {#each neighbors as { number, timesDivisibleBy2: distance, delta, factor }}
       <div
         style:background-color={`oklch(${97.5 - 2.5 * (EXP - distance - 1)}% 0.075 300)`}
         style:grid-column={`1 / ${EXP - distance}`}
       ></div>
       <div
-        class="text-right"
+        class="text-right py-1"
         style:background-color={`oklch(${97.5 - 2.5 * (EXP - distance - 1)}% 0.075 300)`}
         style:grid-column={`${EXP - distance} / -1`}
       >
         <div class="flex items-end flex-col w-fit">
-          <math class="text-neutral-700/75 text-sm font-mono">
+          <math class="text-neutral-700/75 text-sm font-sans">
             <mn>{factor}</mn>
             <mo>&times;</mo>
             <msup>
               <mn>2</mn>
-              <mn class="font-bold text-black text-11px">{distance}</mn>
+              <!-- do 2^(0 + 6) -->
+              <mn class="font-semibold text-black text-11px">{distance}</mn>
             </msup>
           </math>
-          <div
-            class={[
-              "value .size-fit .px-2 relative .mx-16 text-xl w-full overflow-visible",
-              // input &&
-              //   String(number / scale).startsWith(input.trim()) &&
-              //   "bg-yellow-300",
-            ]}
-          >
+          <div class={["text-xl font-mono"]}>
             {number}
           </div>
-          <div class="text-11px font-bold">
-            {delta > 0 ? "+" : ""}{delta}
-          </div>
+          <math class="font-sans text-11px">
+            <mo class="text-neutral-700/75 relative -top-[0.125em]">
+              {delta > 0 ? "+" : delta < 0 ? "−" : ""}
+            </mo>
+            <mn class="font-semibold text-black">
+              {Math.abs(delta)}
+            </mn>
+          </math>
         </div>
       </div>
     {/each}
   </div>
 </main>
-<!-- // style:padding-left={`${((EXP - distance - 1) / EXP) * 100}%`} -->

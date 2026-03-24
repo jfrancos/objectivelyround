@@ -11,6 +11,7 @@
 	},
 	"devDependencies": {
 		"@biomejs/biome": "2.4.8",
+		"@iconify/json": "^2.2.453",
 		"@internationalized/date": "^3.12.0",
 		"@sveltejs/vite-plugin-svelte": "^7.0.0",
 		"@tsconfig/svelte": "^5.0.8",
@@ -31,9 +32,8 @@
 		}
 	},
 	"dependencies": {
-		"@fontsource/libertinus-math": "^5.2.1",
+		"@fontsource/inter": "^5.2.8",
 		"@fontsource/noto-sans-math": "^5.2.8",
-		"@iconify/json": "^2.2.453",
 		"clsx": "^2.1.1",
 		"slidytabs": "^0.1.9",
 		"tailwind-merge": "^3.5.0",
