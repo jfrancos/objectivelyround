@@ -15,11 +15,15 @@ export type WithoutChildrenOrChild<T> = WithoutChildren<WithoutChild<T>>;
 export type WithElementRef<T, U extends HTMLElement = HTMLElement> = T & {
 	ref?: U | null;
 };
-
 type Item = {
+	delta: number;
 	number: number;
-	timesDivisibleBy2: number;
+	exponent: number;
+	factor: number;
+	rank: number;
 };
+
+type UnrankedItem = Omit<Item, "rank">;
 
 const timesDivisibleBy2 = (x: number) => {
 	let count = 0;
@@ -37,7 +41,7 @@ const findNext = (
 	start: number,
 	step: -1 | 1,
 	min: number,
-): Item | undefined => {
+): UnrankedItem | undefined => {
 	const factor = 2 ** min;
 
 	const number =
@@ -51,22 +55,23 @@ const findNext = (
 
 	return {
 		number,
-		timesDivisibleBy2: exponent,
+		exponent,
 		factor: number / 2 ** exponent,
+		delta: 0,
 	};
 };
 
 export const getNeighbors = (target: number): Item[] => {
-	const middle = {
+	const middle: UnrankedItem = {
 		number: target,
-		timesDivisibleBy2: timesDivisibleBy2(target),
+		exponent: timesDivisibleBy2(target),
 		factor: target / 2 ** timesDivisibleBy2(target),
 		delta: 0,
 	};
 
 	const walk = (step: -1 | 1) => {
-		const items: Item[] = [];
-		let min = middle.timesDivisibleBy2 + 1;
+		const items: UnrankedItem[] = [];
+		let min = middle.exponent + 1;
 		let start = target + step;
 
 		while (true) {
@@ -77,10 +82,23 @@ export const getNeighbors = (target: number): Item[] => {
 				delta: next.number - target,
 			});
 			if (isPowerOf2(next.number)) return items;
-			min = next.timesDivisibleBy2 + 1;
+			min = next.exponent + 1;
 			start = next.number + step;
 		}
 	};
 
-	return [...walk(-1), middle, ...walk(1)];
+	const items = [...walk(-1), middle, ...walk(1)];
+
+	const exponentsDesc = [...new Set(items.map((x) => x.exponent))].sort(
+		(a, b) => b - a,
+	);
+
+	const rankByExponent = new Map(
+		exponentsDesc.map((exponent, rank) => [exponent, rank]),
+	);
+
+	return items.map((item) => ({
+		...item,
+		rank: rankByExponent.get(item.exponent) ?? Infinity,
+	}));
 };

@@ -46,41 +46,39 @@
       />
     </InputGroup>
   </header>
-  <div
-    style:grid-template-columns={`repeat(${EXP}, minmax(0, 1fr))`}
-    class="color-neutral-800 grid"
-  >
-    {#each neighbors as { number, timesDivisibleBy2: distance, delta, factor }}
+  <div class=".flex .flex-col">
+    {#each neighbors as { number, exponent, delta, factor, rank }}
       <div
-        style:background-color={`oklch(${97.5 - 2.5 * (EXP - distance - 1)}% 0.075 300)`}
-        style:grid-column={`1 / ${EXP - distance}`}
-      ></div>
-      <div
-        class="text-right py-1"
-        style:background-color={`oklch(${97.5 - 2.5 * (EXP - distance - 1)}% 0.075 300)`}
-        style:grid-column={`${EXP - distance} / -1`}
+        class="px-4"
+        style:background-color={`oklch(${1 - (0.5 * rank) / (neighbors.length - 1)} 0.1 300)`}
       >
-        <div class="flex items-end flex-col w-fit">
-          <math class="text-neutral-700/75 text-sm font-sans">
-            <mn>{factor}</mn>
-            <mo>&times;</mo>
-            <msup>
-              <mn>2</mn>
-              <!-- do 2^(0 + 6) -->
-              <mn class="font-semibold text-black text-11px">{distance}</mn>
-            </msup>
-          </math>
-          <div class={["text-xl font-mono"]}>
-            {number}
+        <div
+          class="text-right py-2 relative w-fit"
+          style:left={`${(100 * rank) / (neighbors.length - 1)}%`}
+          style:transform={`translateX(${(-100 * rank) / (neighbors.length - 1)}%)`}
+        >
+          <div class="flex items-end flex-col w-fit min-w-0">
+            <math class="text-neutral-700/75 text-sm font-sans">
+              <mn>{factor}</mn>
+              <mo>&times;</mo>
+              <msup>
+                <mn>2</mn>
+                <!-- do 2^(0 + 6) -->
+                <mn class="font-semibold text-black text-11px">{exponent}</mn>
+              </msup>
+            </math>
+            <div class={["text-xl font-mono color-neutral-800"]}>
+              {number}
+            </div>
+            <math class="font-sans text-11px">
+              <mo class="text-neutral-700/75 relative -top-[0.125em]">
+                {delta > 0 ? "+" : delta < 0 ? "−" : ""}
+              </mo>
+              <mn class="font-semibold text-black">
+                {Math.abs(delta)}
+              </mn>
+            </math>
           </div>
-          <math class="font-sans text-11px">
-            <mo class="text-neutral-700/75 relative -top-[0.125em]">
-              {delta > 0 ? "+" : delta < 0 ? "−" : ""}
-            </mo>
-            <mn class="font-semibold text-black">
-              {Math.abs(delta)}
-            </mn>
-          </math>
         </div>
       </div>
     {/each}
