@@ -8,8 +8,6 @@
   let showLimit = $state(false);
   const neighbors = $derived(input ? getNeighbors(input) : []);
   onMount(() => inputRef?.focus());
-
-  $inspect(input);
 </script>
 
 <svelte:window
@@ -21,7 +19,7 @@
 />
 
 <header
-  class="sticky top-0 shadow-lg py-2 bg-white flex justify-center z-10 flex flex-col items-center gap-2 text-xs font-medium text-nowrap"
+  class="sticky top-0 shadow-lg py-2 bg-white flex z-10 flex flex-col items-center gap-2 text-xs font-medium text-nowrap"
 >
   <div class={[showLimit || "invisible"]}>
     You’ve reached the artificial limit of <math class="font-sans font-medium"
