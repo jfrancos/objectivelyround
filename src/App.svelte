@@ -69,7 +69,7 @@
         <mo>&times;</mo>
         <msup>
           <mn>2</mn>
-          <mn class="font-semibold text-black text-11px">{exponent}</mn>
+          <mn class="font-bold text-black text-11px">{exponent}</mn>
         </msup>
       </math>
       <div class="text-xl font-mono color-neutral-800">
@@ -79,7 +79,7 @@
         <mo class="text-neutral-600 relative -top-[0.125em]">
           {delta > 0 ? "+" : delta < 0 ? "−" : ""}
         </mo>
-        <mn class="font-semibold text-black">
+        <mn class="font-bold text-black">
           {Math.abs(delta)}
         </mn>
       </math>
