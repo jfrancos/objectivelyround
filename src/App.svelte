@@ -22,8 +22,8 @@
   class="sticky top-0 shadow-lg py-2 bg-white flex z-10 flex flex-col items-center gap-2 text-xs font-medium text-nowrap"
 >
   <div class={[showLimit || "invisible"]}>
-    You’ve reached the artificial limit of <math class="font-sans font-medium"
-      ><msup><mn>2</mn><mn>52</mn></msup></math
+    For safety, the input is currently capped at <math
+      class="font-sans font-medium"><msup><mn>2</mn><mn>50</mn></msup></math
     >
   </div>
   <Input
@@ -34,7 +34,7 @@
     bind:value={
       () => input,
       (next) => {
-        if (next <= 2 ** 52) {
+        if (next <= 2 ** 50) {
           input = next;
           showLimit = false;
         } else {
@@ -47,7 +47,7 @@
     target="_blank"
     class={["underline color-purple-700", showLimit || "invisible"]}
     href="https://github.com/jfrancos/objectivelyround/issues"
-    >Tell me about your use case</a
+    >Tell me about your bigint use case</a
   >
 </header>
 {#each neighbors as { number, exponent, delta, coef, rank }}

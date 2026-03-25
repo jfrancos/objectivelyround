@@ -26,7 +26,6 @@ const isPowerOf2 = (x: number) =>
 	Number.isSafeInteger(x) && x > 0 && (BigInt(x) & (BigInt(x) - 1n)) === 0n;
 
 export const round = (target: number) => {
-	console.time();
 	let exp = timesDivisibleBy2(target);
 	const items: {
 		number: number;
@@ -52,10 +51,11 @@ export const round = (target: number) => {
 
 		exp++;
 	}
-	console.timeEnd();
 
 	return items
 		.toReversed()
 		.map((item, rank) => ({ ...item, rank }))
 		.toSorted((a, b) => a.number - b.number);
 };
+
+console.log(isPowerOf2(2 ** 51));
