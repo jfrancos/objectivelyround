@@ -21,7 +21,7 @@
 />
 
 <header
-  class="sticky top-0 shadow-lg py-2 bg-white flex justify-center z-10 flex flex-col items-center gap-2 text-xs font-medium"
+  class="sticky top-0 shadow-lg py-2 bg-white flex justify-center z-10 flex flex-col items-center gap-2 text-xs font-medium text-nowrap"
 >
   <div class={[showLimit || "invisible"]}>
     You’ve reached the artificial limit of <math class="font-sans font-medium"
@@ -37,7 +37,7 @@
     bind:value={
       () => input,
       (next) => {
-        if (next < 2 ** 48) {
+        if (next <= 2 ** 48) {
           input = next;
           showLimit = false;
         } else {
@@ -56,7 +56,7 @@
 {#each neighbors as { number, exponent, delta, factor, rank }}
   {@const percentage = rank / (neighbors.length - 1)}
   <div
-    class="px-4 h-18 flex items-center"
+    class="px-4 h-20 flex items-center"
     style:background-color={`oklch(${1 - 0.375 * percentage} 0.1 300)`}
   >
     <div
