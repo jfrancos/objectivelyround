@@ -57,5 +57,3 @@ export const round = (target: number) => {
 		.map((item, rank) => ({ ...item, rank }))
 		.toSorted((a, b) => a.number - b.number);
 };
-
-console.log(isPowerOf2(2 ** 51));
