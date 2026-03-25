@@ -15,15 +15,6 @@ export type WithoutChildrenOrChild<T> = WithoutChildren<WithoutChild<T>>;
 export type WithElementRef<T, U extends HTMLElement = HTMLElement> = T & {
 	ref?: U | null;
 };
-type Item = {
-	delta: number;
-	number: number;
-	exponent: number;
-	factor: number;
-	rank: number;
-};
-
-type UnrankedItem = Omit<Item, "rank">;
 
 const timesDivisibleBy2 = (x: number) => {
 	let count = 0;
@@ -31,74 +22,40 @@ const timesDivisibleBy2 = (x: number) => {
 	return count;
 };
 
-const isPowerOf2 = (x: number) => {
-	if (x < 1 || !Number.isInteger(x)) return false;
-	while (x % 2 === 0) x /= 2;
-	return x === 1;
-};
+const isPowerOf2 = (x: number) =>
+	Number.isSafeInteger(x) && x > 0 && (BigInt(x) & (BigInt(x) - 1n)) === 0n;
 
-const findNext = (
-	start: number,
-	step: -1 | 1,
-	min: number,
-): UnrankedItem | undefined => {
-	const factor = 2 ** min;
+export const round = (target: number) => {
+	console.time();
+	let exp = timesDivisibleBy2(target);
+	const items: {
+		number: number;
+		exponent: number;
+		coef: number;
+		delta: number;
+	}[] = [];
 
-	const number =
-		step === 1
-			? Math.ceil(start / factor) * factor
-			: Math.floor(start / factor) * factor;
+	while (2 ** exp <= target * 2) {
+		const factor = 2 ** exp;
+		const upItem = Math.ceil(target / factor) * factor;
+		const downItem = Math.floor(target / factor) * factor;
+		const useUp = timesDivisibleBy2(upItem / factor) === 0;
+		const item = useUp ? upItem : downItem;
 
-	if (number < 1) return;
+		if (isPowerOf2(item / 2) && item - target > target - item / 2) break;
+		items.push({
+			number: item,
+			exponent: exp,
+			coef: item / factor,
+			delta: item - target,
+		});
 
-	const exponent = min + timesDivisibleBy2(number / factor);
+		exp++;
+	}
+	console.timeEnd();
 
-	return {
-		number,
-		exponent,
-		factor: number / 2 ** exponent,
-		delta: 0,
-	};
-};
-
-export const getNeighbors = (target: number): Item[] => {
-	const middle: UnrankedItem = {
-		number: target,
-		exponent: timesDivisibleBy2(target),
-		factor: target / 2 ** timesDivisibleBy2(target),
-		delta: 0,
-	};
-
-	const walk = (step: -1 | 1) => {
-		const items: UnrankedItem[] = [];
-		let min = middle.exponent + 1;
-		let start = target + step;
-
-		while (true) {
-			const next = findNext(start, step, min);
-			if (!next) return items;
-			items[step === -1 ? "unshift" : "push"]({
-				...next,
-				delta: next.number - target,
-			});
-			if (isPowerOf2(next.number)) return items;
-			min = next.exponent + 1;
-			start = next.number + step;
-		}
-	};
-
-	const items = [...walk(-1), middle, ...walk(1)];
-
-	const exponentsDesc = [...new Set(items.map((x) => x.exponent))].sort(
-		(a, b) => b - a,
-	);
-
-	const rankByExponent = new Map(
-		exponentsDesc.map((exponent, rank) => [exponent, rank]),
-	);
-
-	return items.map((item) => ({
-		...item,
-		rank: rankByExponent.get(item.exponent) ?? Infinity,
-	}));
+	return items
+		.toReversed()
+		.map((item, rank) => ({ ...item, rank }))
+		.toSorted((a, b) => a.number - b.number);
 };
