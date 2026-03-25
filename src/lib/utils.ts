@@ -41,6 +41,7 @@ export const round = (target: number) => {
 		const useUp = timesDivisibleBy2(upItem / factor) === 0;
 		const item = useUp ? upItem : downItem;
 
+		// can we do without isPowerOf2?  only used once.
 		if (isPowerOf2(item / 2) && item - target > target - item / 2) break;
 		items.push({
 			number: item,

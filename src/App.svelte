@@ -75,11 +75,11 @@
       <math
         class={[
           "font-sans text-11px text-neutral-600",
-          input === number && "hidden",
+          delta === 0 && "hidden",
         ]}
       >
         <mn>{input}</mn>
-        <mo class=".text-neutral-600 .relative .-top-[0.125em]">
+        <mo>
           {delta > 0 ? "+" : delta < 0 ? "−" : ""}
         </mo>
         <mn class="font-bold text-black">
