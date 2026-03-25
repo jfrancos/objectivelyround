@@ -72,8 +72,14 @@
       <div class="text-xl font-mono color-neutral-800">
         {number}
       </div>
-      <math class="font-sans text-11px">
-        <mo class="text-neutral-600 relative -top-[0.125em]">
+      <math
+        class={[
+          "font-sans text-11px text-neutral-600",
+          input === number && "hidden",
+        ]}
+      >
+        <mn>{input}</mn>
+        <mo class=".text-neutral-600 .relative .-top-[0.125em]">
           {delta > 0 ? "+" : delta < 0 ? "−" : ""}
         </mo>
         <mn class="font-bold text-black">
