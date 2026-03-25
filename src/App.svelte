@@ -22,7 +22,7 @@
   class="sticky top-0 shadow-lg py-2 bg-white flex z-10 flex flex-col items-center gap-2 text-xs font-medium text-nowrap"
 >
   <div class={[showLimit || "invisible"]}>
-    For safety, the input is currently capped at <math
+    For safety reasons, the input is capped at <math
       class="font-sans font-medium"><msup><mn>2</mn><mn>50</mn></msup></math
     >
   </div>
@@ -47,7 +47,7 @@
     target="_blank"
     class={["underline color-purple-700", showLimit || "invisible"]}
     href="https://github.com/jfrancos/objectivelyround/issues"
-    >Tell me about your bigint use case</a
+    >Tell me about your BigInt use case</a
   >
 </header>
 {#each neighbors as { number, exponent, delta, coef, rank }}
