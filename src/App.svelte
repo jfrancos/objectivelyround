@@ -50,7 +50,7 @@
     >Tell me about your BigInt use case</a
   >
 </header>
-{#each neighbors as { number, exponent, delta, coef, rank }}
+{#each neighbors as { number, exp, delta, coef, rank }}
   {@const percentage = rank / (neighbors.length - 1)}
   <div
     class="px-6 h-20 flex items-center"
@@ -66,7 +66,7 @@
         <mo>&times;</mo>
         <msup>
           <mn>2</mn>
-          <mn class="font-bold text-black text-11px">{exponent}</mn>
+          <mn class="font-bold text-black text-11px">{exp}</mn>
         </msup>
       </math>
       <div class="text-xl font-mono color-neutral-800">

@@ -26,31 +26,21 @@ const isPowerOf2 = (x: number) =>
 	Number.isSafeInteger(x) && x > 0 && (BigInt(x) & (BigInt(x) - 1n)) === 0n;
 
 export const round = (target: number) => {
-	let exp = timesDivisibleBy2(target);
-	const items: {
-		number: number;
-		exponent: number;
-		coef: number;
-		delta: number;
-	}[] = [];
+	const items = [];
 
-	while (2 ** exp <= target * 2) {
+	for (let exp = timesDivisibleBy2(target); 2 ** exp <= target * 2; exp++) {
 		const factor = 2 ** exp;
 		const upItem = Math.ceil(target / factor) * factor;
 		const downItem = Math.floor(target / factor) * factor;
 		const useUp = timesDivisibleBy2(upItem / factor) === 0;
-		const item = useUp ? upItem : downItem;
 
-		// can we do without isPowerOf2?  only used once.
-		if (isPowerOf2(item / 2) && item - target > target - item / 2) break;
-		items.push({
-			number: item,
-			exponent: exp,
-			coef: item / factor,
-			delta: item - target,
-		});
+		const number = useUp ? upItem : downItem;
+		const delta = number - target;
+		const coef = number / factor;
 
-		exp++;
+		// omit upper power of 2 if target is closer to lower power of 2
+		if (isPowerOf2(number / 2) && number - target > target - number / 2) break;
+		items.push({ number, exp, coef, delta });
 	}
 
 	return items
