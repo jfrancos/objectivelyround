@@ -8,6 +8,9 @@
   let showLimit = $state(false);
   const neighbors = $derived(input ? round(input) : []);
   onMount(() => inputRef?.focus());
+
+  const formatNumber = (number: number) =>
+    number.toLocaleString(undefined, { useGrouping: "min2" });
 </script>
 
 <svelte:window
@@ -62,7 +65,7 @@
       style:transform={`translateX(${-100 * percentage}%)`}
     >
       <math class="text-neutral-600 text-sm font-sans">
-        <mn>{coef}</mn>
+        <mn>{formatNumber(coef)}</mn>
         <mo>&times;</mo>
         <msup>
           <mn>2</mn>
@@ -70,7 +73,7 @@
         </msup>
       </math>
       <div class="text-xl font-mono color-neutral-800">
-        {number}
+        {formatNumber(number)}
       </div>
       <math
         class={[
@@ -78,12 +81,12 @@
           delta === 0 && "hidden",
         ]}
       >
-        <mn>{input}</mn>
+        <mn>{formatNumber(input)}</mn>
         <mo>
           {delta > 0 ? "+" : delta < 0 ? "−" : ""}
         </mo>
         <mn class="font-bold text-black">
-          {Math.abs(delta)}
+          {formatNumber(Math.abs(delta))}
         </mn>
       </math>
     </div>
