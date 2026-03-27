@@ -1,57 +1,103 @@
 <script lang="ts">
   import { onMount } from "svelte";
+  import Button from "$lib/components/ui/button/button.svelte";
   import { Input } from "$lib/components/ui/input";
   import { round } from "./lib/utils";
 
-  const base = 10;
-  let input = $state(1337);
+  let baseInput = $state<number | null>(2);
+  let base = $derived(Math.max(baseInput ?? 2, 2));
+  let showBase = $state(true);
+  let target = $state(1337);
   let inputRef = $state<HTMLInputElement | null>(null);
   let showLimit = $state(false);
-  const neighbors = $derived(input ? round(input, base) : []);
+  const neighbors = $derived(target ? round(target, base) : []);
   onMount(() => inputRef?.focus());
   // $inspect(neighbors).with((_, item) =>
   //   console.log(JSON.stringify(item, undefined, 2)),
   // );
-
+  $inspect(base);
   const formatNumber = (number: number) =>
     number.toLocaleString(undefined, { useGrouping: "min2" });
 </script>
 
 <svelte:window
   onkeydown={({ key }) => {
-    if (input === null && key.match(/[\d]/)) {
+    if (key === "b") {
+      showBase = !showBase;
+    } else if (target === null && key.match(/[\d]/)) {
       inputRef?.focus();
     }
   }}
 />
 
 <header
-  class="sticky top-0 shadow-lg py-2 bg-white flex z-10 flex flex-col items-center gap-2 text-xs font-medium text-nowrap"
+  class="sticky top-0 shadow-lg py-2 bg-white flex z-10 text-xs font-medium text-nowrap items-center px-4 md:px-8 flex-col gap-2"
 >
-  <div class={[showLimit || "invisible"]}>
-    For safety reasons, the input is capped at <math
-      class="font-sans font-medium"
-    >
-      <msup><mn>2</mn><mn>50</mn></msup>
+  <div class={[showLimit || "invisible", "text-neutral-600"]}>
+    Input is capped at <math class="font-sans font-semibold text-neutral-800">
+      <mi>target</mi>
+      <mo>×</mo>
+      <mi>base</mi>
+      <mo>≤</mo>
+      <msup>
+        <mn>2</mn>
+        <mn>50</mn>
+      </msup>
     </math>
   </div>
-  <Input
-    class="w-48"
-    type="number"
-    placeholder="Target"
-    bind:ref={inputRef}
-    bind:value={
-      () => input,
-      (next) => {
-        if (next <= 2 ** 50) {
-          input = next;
-          showLimit = false;
-        } else {
-          showLimit = true;
+  <div class="flex justify-between w-full">
+    <div class={["flex-1", showBase || "invisible"]}>
+      <Input
+        onblur={() => {
+          if ((baseInput ?? 0) < 2) baseInput = 2;
+        }}
+        min={2}
+        class="md:w-24 w-20"
+        placeholder="Base"
+        type="number"
+        bind:value={
+          () => baseInput,
+          (next) => {
+            if (next === null) {
+              baseInput = null;
+            } else if (target * next <= 2 ** 50) {
+              baseInput = Math.trunc(next);
+              showLimit = false;
+            } else {
+              showLimit = true;
+            }
+          }
+        }
+      />
+    </div>
+    <Input
+      class="w-32 md:w-48"
+      type="number"
+      placeholder="Target"
+      bind:ref={inputRef}
+      bind:value={
+        () => target,
+        (next) => {
+          if (next * base <= 2 ** 50) {
+            target = next === null ? next : Math.trunc(next);
+            showLimit = false;
+          } else {
+            showLimit = true;
+          }
         }
       }
-    }
-  />
+    />
+    <div class="flex-1 flex justify-end">
+      <Button
+        variant="ghost"
+        class="relative -right-2.5"
+        href="https://github.com/jfrancos/objectivelyround"
+        target="_blank"
+      >
+        <div class="i-mdi:github text-2xl"></div>
+      </Button>
+    </div>
+  </div>
   <a
     target="_blank"
     class={["underline color-purple-700", showLimit || "invisible"]}
@@ -60,10 +106,8 @@
   >
 </header>
 {#each neighbors as { num, exp, delta, coef, rank }}
-  {@const percentage =
-    rank /
-    (Math.max(...neighbors.map((item) => item.rank)) -
-      Math.min(...neighbors.map((item) => item.rank)))}
+  {@const max = Math.max(...neighbors.map((item) => item.rank))}
+  {@const percentage = max === 0 ? 0.5 : rank / max}
   <div
     class="px-6 h-20 flex items-center"
     style:background-color={`oklch(${1 - 0.375 * percentage} 0.1 300)`}
@@ -90,7 +134,7 @@
           delta === 0 && "hidden",
         ]}
       >
-        <mn>{formatNumber(input)}</mn>
+        <mn>{formatNumber(target)}</mn>
         <mo>
           {delta > 0 ? "+" : delta < 0 ? "−" : ""}
         </mo>

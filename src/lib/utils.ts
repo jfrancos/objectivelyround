@@ -28,7 +28,7 @@ export const round = (target: number, base: number) => {
 	}
 	const items: { exp: number; num: number; coef: number; delta: number }[] = [];
 	let exp: number;
-	for (exp = exponent(target, base); base ** exp <= target * base; exp++) {
+	for (exp = exponent(target, base); base ** exp < target * base; exp++) {
 		const factor = base ** exp;
 		const upItem = Math.ceil(target / factor) * factor;
 		const downItem = Math.floor(target / factor) * factor;
