@@ -51,6 +51,7 @@
         onblur={() => {
           if ((baseInput ?? 0) < 2) baseInput = 2;
         }}
+        inputmode="numeric"
         min={2}
         class="md:w-24 w-20"
         placeholder="Base"
@@ -71,6 +72,7 @@
       />
     </div>
     <Input
+      inputmode="numeric"
       class="w-32 md:w-48"
       type="number"
       placeholder="Target"
