@@ -3,11 +3,15 @@
   import { Input } from "$lib/components/ui/input";
   import { round } from "./lib/utils";
 
+  const base = 10;
   let input = $state(1337);
   let inputRef = $state<HTMLInputElement | null>(null);
   let showLimit = $state(false);
-  const neighbors = $derived(input ? round(input) : []);
+  const neighbors = $derived(input ? round(input, base) : []);
   onMount(() => inputRef?.focus());
+  // $inspect(neighbors).with((_, item) =>
+  //   console.log(JSON.stringify(item, undefined, 2)),
+  // );
 
   const formatNumber = (number: number) =>
     number.toLocaleString(undefined, { useGrouping: "min2" });
@@ -26,8 +30,10 @@
 >
   <div class={[showLimit || "invisible"]}>
     For safety reasons, the input is capped at <math
-      class="font-sans font-medium"><msup><mn>2</mn><mn>50</mn></msup></math
+      class="font-sans font-medium"
     >
+      <msup><mn>2</mn><mn>50</mn></msup>
+    </math>
   </div>
   <Input
     class="w-48"
@@ -53,8 +59,11 @@
     >Tell me about your BigInt use case</a
   >
 </header>
-{#each neighbors as { number, exp, delta, coef, rank }}
-  {@const percentage = rank / (neighbors.length - 1)}
+{#each neighbors as { num, exp, delta, coef, rank }}
+  {@const percentage =
+    rank /
+    (Math.max(...neighbors.map((item) => item.rank)) -
+      Math.min(...neighbors.map((item) => item.rank)))}
   <div
     class="px-6 h-20 flex items-center"
     style:background-color={`oklch(${1 - 0.375 * percentage} 0.1 300)`}
@@ -68,16 +77,16 @@
         <mn>{formatNumber(coef)}</mn>
         <mo>&times;</mo>
         <msup>
-          <mn>2</mn>
-          <mn class="font-bold text-black text-11px">{exp}</mn>
+          <mn>{base}</mn>
+          <mn class="font-bold text-black text-0.6875rem">{exp}</mn>
         </msup>
       </math>
       <div class="text-xl font-mono color-neutral-800">
-        {formatNumber(number)}
+        {formatNumber(num)}
       </div>
       <math
         class={[
-          "font-sans text-11px text-neutral-600",
+          "font-sans text-0.6875rem text-neutral-600",
           delta === 0 && "hidden",
         ]}
       >

@@ -16,35 +16,33 @@ export type WithElementRef<T, U extends HTMLElement = HTMLElement> = T & {
 	ref?: U | null;
 };
 
-const timesDivisibleBy2 = (x: number) => {
+const exponent = (x: number, divisor: number) => {
 	let count = 0;
-	for (let n = x; n % 2 === 0; n /= 2) count++;
+	for (let n = x; n % divisor === 0; n /= divisor) count++;
 	return count;
 };
 
-const isPowerOf2 = (x: number) =>
-	Number.isSafeInteger(x) && x > 0 && (BigInt(x) & (BigInt(x) - 1n)) === 0n;
-
-export const round = (target: number) => {
-	const items = [];
-
-	for (let exp = timesDivisibleBy2(target); 2 ** exp <= target * 2; exp++) {
-		const factor = 2 ** exp;
+export const round = (target: number, base: number) => {
+	if (base < 2) {
+		throw new Error("Rounding has no meaning for base < 2");
+	}
+	const items: { exp: number; num: number; coef: number; delta: number }[] = [];
+	let exp: number;
+	for (exp = exponent(target, base); base ** exp <= target * base; exp++) {
+		const factor = base ** exp;
 		const upItem = Math.ceil(target / factor) * factor;
 		const downItem = Math.floor(target / factor) * factor;
-		const useUp = timesDivisibleBy2(upItem / factor) === 0;
 
-		const number = useUp ? upItem : downItem;
-		const delta = number - target;
-		const coef = number / factor;
-
-		// omit upper power of 2 if target is closer to lower power of 2
-		if (isPowerOf2(number / 2) && number - target > target - number / 2) break;
-		items.push({ number, exp, coef, delta });
+		for (const num of upItem === downItem ? [upItem] : [upItem, downItem]) {
+			if (num > 0 && exponent(num / factor, base) === 0) {
+				const coef = num / factor;
+				const delta = num - target;
+				items.push({ num, exp, coef, delta });
+			}
+		}
 	}
 
 	return items
-		.toReversed()
-		.map((item, rank) => ({ ...item, rank }))
-		.toSorted((a, b) => a.number - b.number);
+		.map((item) => ({ ...item, rank: exp - item.exp - 1 }))
+		.toSorted((a, b) => a.num - b.num);
 };
