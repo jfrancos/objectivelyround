@@ -91,6 +91,7 @@
     />
     <div class="flex-1 flex justify-end">
       <Button
+        aria-label="github repository"
         variant="ghost"
         class="relative -right-2.5"
         href="https://github.com/jfrancos/objectivelyround"
@@ -107,48 +108,50 @@
     >Tell me about your BigInt use case</a
   >
 </header>
-{#each neighbors as { num, exp, delta, coef, rank, primary }}
-  {@const max = Math.max(...neighbors.map((item) => item.rank))}
-  {@const percentage = max === 0 ? 0.5 : rank / max}
-  <div
-    class="px-6 h-20 flex items-center"
-    style:background-color={`oklch(${1 - 0.375 * percentage} 0.1 300)`}
-  >
+<main>
+  {#each neighbors as { num, exp, delta, coef, rank, primary }}
+    {@const max = Math.max(...neighbors.map((item) => item.rank))}
+    {@const percentage = max === 0 ? 0.5 : rank / max}
     <div
-      class="relative flex items-end flex-col"
-      style:left={`${100 * percentage}%`}
-      style:transform={`translateX(${-100 * percentage}%)`}
+      class="px-6 h-20 flex items-center"
+      style:background-color={`oklch(${1 - 0.375 * percentage} 0.1 300)`}
     >
-      <math class="color-neutral-600 text-sm font-sans">
-        <mn>{formatNumber(coef)}</mn>
-        <mo>&times;</mo>
-        <msup>
-          <mn>{base}</mn>
-          <mn class="font-black color-black text-0.6875rem">{exp}</mn>
-        </msup>
-      </math>
       <div
-        class={[
-          "text-xl font-mono",
-          primary ? "color-neutral-800" : "color-neutral-600",
-        ]}
+        class="relative flex items-end flex-col"
+        style:left={`${100 * percentage}%`}
+        style:transform={`translateX(${-100 * percentage}%)`}
       >
-        {formatNumber(num)}
+        <math class="color-neutral-600 text-sm font-sans">
+          <mn>{formatNumber(coef)}</mn>
+          <mo>&times;</mo>
+          <msup>
+            <mn>{base}</mn>
+            <mn class="font-black color-black text-0.6875rem">{exp}</mn>
+          </msup>
+        </math>
+        <div
+          class={[
+            "text-xl font-mono",
+            primary ? "color-neutral-800" : "color-neutral-600",
+          ]}
+        >
+          {formatNumber(num)}
+        </div>
+        <math
+          class={[
+            "font-sans text-0.6875rem color-neutral-600",
+            delta === 0 && "hidden",
+          ]}
+        >
+          <mn>{formatNumber(target)}</mn>
+          <mo>
+            {delta > 0 ? "+" : delta < 0 ? "−" : ""}
+          </mo>
+          <mn class="color-neutral-800 font-semibold">
+            {formatNumber(Math.abs(delta))}
+          </mn>
+        </math>
       </div>
-      <math
-        class={[
-          "font-sans text-0.6875rem color-neutral-600",
-          delta === 0 && "hidden",
-        ]}
-      >
-        <mn>{formatNumber(target)}</mn>
-        <mo>
-          {delta > 0 ? "+" : delta < 0 ? "−" : ""}
-        </mo>
-        <mn class="color-neutral-800 font-semibold">
-          {formatNumber(Math.abs(delta))}
-        </mn>
-      </math>
     </div>
-  </div>
-{/each}
+  {/each}
+</main>
