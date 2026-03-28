@@ -124,7 +124,7 @@
         <mo>&times;</mo>
         <msup>
           <mn>{base}</mn>
-          <mn class="font-bold text-black text-0.6875rem">{exp}</mn>
+          <mn class="font-black text-black text-0.6875rem">{exp}</mn>
         </msup>
       </math>
       <div class="text-xl font-mono color-neutral-800">
@@ -140,7 +140,7 @@
         <mo>
           {delta > 0 ? "+" : delta < 0 ? "−" : ""}
         </mo>
-        <mn class=" text-neutral-900 font-medium">
+        <mn class="text-neutral-800 font-semibold">
           {formatNumber(Math.abs(delta))}
         </mn>
       </math>
