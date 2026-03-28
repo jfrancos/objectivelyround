@@ -33,8 +33,8 @@
 <header
   class="sticky top-0 shadow-lg py-2 bg-white flex z-10 text-xs font-medium text-nowrap items-center px-4 md:px-8 flex-col gap-2"
 >
-  <div class={[showLimit || "invisible", "text-neutral-600"]}>
-    Input is capped at <math class="font-sans font-semibold text-neutral-800">
+  <div class={[showLimit || "invisible", "color-neutral-600"]}>
+    Input is capped at <math class="font-sans font-semibold color-neutral-800">
       <mi>target</mi>
       <mo>×</mo>
       <mi>base</mi>
@@ -51,6 +51,7 @@
         onblur={() => {
           if ((baseInput ?? 0) < 2) baseInput = 2;
         }}
+        autocomplete="off"
         inputmode="numeric"
         min={2}
         class="md:w-24 w-20"
@@ -72,6 +73,7 @@
       />
     </div>
     <Input
+      autocomplete="off"
       inputmode="numeric"
       class="w-32 md:w-48"
       type="number"
@@ -119,12 +121,12 @@
       style:left={`${100 * percentage}%`}
       style:transform={`translateX(${-100 * percentage}%)`}
     >
-      <math class="text-neutral-600 text-sm font-sans">
+      <math class="color-neutral-600 text-sm font-sans">
         <mn>{formatNumber(coef)}</mn>
         <mo>&times;</mo>
         <msup>
           <mn>{base}</mn>
-          <mn class="font-black text-black text-0.6875rem">{exp}</mn>
+          <mn class="font-black color-black text-0.6875rem">{exp}</mn>
         </msup>
       </math>
       <div class="text-xl font-mono color-neutral-800">
@@ -132,7 +134,7 @@
       </div>
       <math
         class={[
-          "font-sans text-0.6875rem text-neutral-600",
+          "font-sans text-0.6875rem color-neutral-600",
           delta === 0 && "hidden",
         ]}
       >
@@ -140,7 +142,7 @@
         <mo>
           {delta > 0 ? "+" : delta < 0 ? "−" : ""}
         </mo>
-        <mn class="text-neutral-800 font-semibold">
+        <mn class="color-neutral-800 font-semibold">
           {formatNumber(Math.abs(delta))}
         </mn>
       </math>
