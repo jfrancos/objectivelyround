@@ -108,7 +108,7 @@
     >Tell me about your BigInt use case</a
   >
 </header>
-{#each neighbors as { num, exp, delta, coef, rank }}
+{#each neighbors as { num, exp, delta, coef, rank, primary }}
   {@const max = Math.max(...neighbors.map((item) => item.rank))}
   {@const percentage = max === 0 ? 0.5 : rank / max}
   <div
@@ -128,7 +128,12 @@
           <mn class="font-black color-black text-0.6875rem">{exp}</mn>
         </msup>
       </math>
-      <div class="text-xl font-mono color-neutral-800">
+      <div
+        class={[
+          "text-xl font-mono",
+          primary ? "color-neutral-800" : "color-neutral-600",
+        ]}
+      >
         {formatNumber(num)}
       </div>
       <math

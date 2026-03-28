@@ -26,20 +26,22 @@ export const round = (target: number, base: number) => {
 	if (base < 2) {
 		throw new Error("Rounding has no meaning for base < 2");
 	}
-	const items: { exp: number; num: number; coef: number; delta: number }[] = [];
+
+	const items = [];
 	let exp: number;
 	for (exp = exponent(target, base); base ** exp < target * base; exp++) {
 		const factor = base ** exp;
 		const upItem = Math.ceil(target / factor) * factor;
 		const downItem = Math.floor(target / factor) * factor;
-
-		for (const num of upItem === downItem ? [upItem] : [upItem, downItem]) {
-			if (num > 0 && exponent(num / factor, base) === 0) {
-				const coef = num / factor;
-				const delta = num - target;
-				items.push({ num, exp, coef, delta });
-			}
-		}
+		items.push(
+			...(upItem === downItem ? [upItem] : [upItem, downItem])
+				.filter((num) => num > 0 && exponent(num / factor, base) === 0)
+				.map((num) => ({ num, exp, coef: num / factor, delta: num - target }))
+				.toSorted(
+					(a, b) => Math.abs(a.delta) - Math.abs(b.delta) || b.num - a.num,
+				)
+				.map((item, i) => ({ ...item, primary: i === 0 })),
+		);
 	}
 
 	return items
