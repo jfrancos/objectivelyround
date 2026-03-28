@@ -5,7 +5,6 @@
   import { round } from "./lib/utils";
 
   let base = $state(2);
-  // let base = $derived(Math.max(baseInput ?? 2, 2));
   let showBase = $state(true);
   let target = $state(1337);
   let inputRef = $state<HTMLInputElement | null>(null);
