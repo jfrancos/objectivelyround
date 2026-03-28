@@ -4,18 +4,19 @@
   import { Input } from "$lib/components/ui/input";
   import { round } from "./lib/utils";
 
-  let baseInput = $state<number | null>(2);
-  let base = $derived(Math.max(baseInput ?? 2, 2));
+  let base = $state(2);
+  // let base = $derived(Math.max(baseInput ?? 2, 2));
   let showBase = $state(true);
   let target = $state(1337);
   let inputRef = $state<HTMLInputElement | null>(null);
   let showLimit = $state(false);
-  const neighbors = $derived(target ? round(target, base) : []);
+  const neighbors = $derived(
+    target > 0 && base >= 2 ? round(target, base) : [],
+  );
   onMount(() => inputRef?.focus());
   // $inspect(neighbors).with((_, item) =>
   //   console.log(JSON.stringify(item, undefined, 2)),
   // );
-  $inspect(base);
   const formatNumber = (number: number) =>
     number.toLocaleString(undefined, { useGrouping: "min2" });
 </script>
@@ -49,7 +50,7 @@
     <div class={["flex-1", showBase || "invisible"]}>
       <Input
         onblur={() => {
-          if ((baseInput ?? 0) < 2) baseInput = 2;
+          if ((base ?? 0) < 2) base = 2;
         }}
         autocomplete="off"
         inputmode="numeric"
@@ -58,12 +59,10 @@
         placeholder="Base"
         type="number"
         bind:value={
-          () => baseInput,
+          () => base,
           (next) => {
-            if (next === null) {
-              baseInput = null;
-            } else if (target * next <= 2 ** 50) {
-              baseInput = Math.trunc(next);
+            if (target * next <= 2 ** 50) {
+              base = next === null ? next : Math.abs(Math.trunc(next));
               showLimit = false;
             } else {
               showLimit = true;
@@ -83,7 +82,7 @@
         () => target,
         (next) => {
           if (next * base <= 2 ** 50) {
-            target = next === null ? next : Math.trunc(next);
+            target = next === null ? next : Math.abs(Math.trunc(next));
             showLimit = false;
           } else {
             showLimit = true;
