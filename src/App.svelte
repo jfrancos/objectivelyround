@@ -140,7 +140,7 @@
         <mo>
           {delta > 0 ? "+" : delta < 0 ? "−" : ""}
         </mo>
-        <mn class="font-bold text-black">
+        <mn class=" text-neutral-900 font-medium">
           {formatNumber(Math.abs(delta))}
         </mn>
       </math>
