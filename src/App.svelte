@@ -23,6 +23,7 @@
 <svelte:window
   onkeydown={({ key }) => {
     if (key === "b") {
+      base = 2;
       showBase = !showBase;
     } else if (target === null && key.match(/[\d]/)) {
       inputRef?.focus();
