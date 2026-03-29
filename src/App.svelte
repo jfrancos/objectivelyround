@@ -155,3 +155,19 @@
     </div>
   {/each}
 </main>
+
+<!-- Early versions of Tailwind encouraged the use of a curated/constrained system of widths/padding/etc.  This wasn't just about stylesheet bulk: using a constrained system helps increase visual consistency and reduce desision fatigue.
+
+Tailwind sizing follows the best practice of using rem units instead of px, and the curated values were chosen based on the default font size being (by definition) 1rem which (by default) equals 16px.  Centering around 16px units, the curated values included powers of 2, and some dyadically-spaced values between powers of two.  The larger the scale, the more spaced out those curated values were.
+
+Combining these facts and this historical system, I persaonlly use a general heuristic to determine optimum sizes: for any ballpark number I'm considering, use the roundest nearby number possible, where round is defined* as "number of times you can divide by 2".
+
+For example: 1337 is divisible by 2 zero times.  But nearby 1344, being equal to 21 x 2^6, is divisible by 2 6 times - a roundness-level increase of 6.  Visually, 1344px (84rem) is identical to 1337px (83.5625rem).  If I ever see 1337px in a figma doc I am absolutely rounding to 1344px without a second thought (sorry Kass!**).
+
+
+This site is a tool that takes a target value and shows you successive base-2 roundings of that value.  For fun, you can also explore what rounding looks like in any arbitrary base - click here or press "b" to toggle that interface.
+
+
+*Roundness is inherently contingent on whatever base you're using.  In base 10, successive roundings of 1337 are 1340, 1300, 1000: we increase the number of times we can divide the number by our base (10).  Defining roundness by how many times you can divide by two, just means we're doing our rounding in base 2 instead of base 10.
+
+**If not 1280px / 80rem / 5 x 2^8 -->
