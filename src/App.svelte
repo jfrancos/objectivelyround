@@ -10,7 +10,6 @@
   let base = $derived<number>(
     targetInput === null || (baseInput ?? 0) < 2 ? 2 : (baseInput ?? 2),
   );
-  $inspect(base);
   let showBase = $state(false);
   let inputRef = $state<HTMLInputElement | null>(null);
   let showLimit = $state(false);
@@ -65,7 +64,7 @@
         min={2}
         class={[
           "md:w-24 w-20",
-          !targetInput &&
+          targetInput === null &&
             baseInput !== null &&
             baseInput !== 2 &&
             "line-through opacity-50",
