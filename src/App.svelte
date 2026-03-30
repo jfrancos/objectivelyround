@@ -126,6 +126,7 @@
       <p>
         Early versions of Tailwind encouraged a <a
           class="underline"
+          target="_blank"
           href="https://v3.tailwindcss.com/docs/width"
           >curated, constrained system of widths</a
         >, padding values, and other sizes. This wasn’t just about stylesheet
