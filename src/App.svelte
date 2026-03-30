@@ -160,7 +160,7 @@
       <p>
         For example, 1337 is divisible by 2 zero times. But nearby 1344, which
         is
-        <math class="font-sans">
+        <math class="font-sans -mr-0.375">
           <mn>21</mn>
           <mo>×</mo>
           <msup>
