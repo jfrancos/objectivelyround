@@ -185,12 +185,13 @@
       </p>
 
       <p>
+        If you find this useful,
         <a
           class="underline"
           target="_blank"
           href="https://github.com/jfrancos/objectivelyround"
-          >If you find this useful, please star the repo.</a
-        >
+          >please star the repo</a
+        >.
       </p>
 
       <p class="text-xs">
