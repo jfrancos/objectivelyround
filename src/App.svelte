@@ -124,10 +124,13 @@
   {#if !targetInput}
     <div class="max-w-224 mx-auto py-12 flex flex-col gap-4 text-neutral-700">
       <p>
-        Early versions of Tailwind encouraged a curated, constrained system of
-        widths, padding values, and other sizes. This was not just about
-        stylesheet bulk: a constrained system improves visual consistency and
-        reduces decision fatigue.
+        Early versions of Tailwind encouraged a <a
+          class="underline"
+          href="https://v3.tailwindcss.com/docs/width"
+          >curated, constrained system of widths</a
+        >, padding values, and other sizes. This wasn’t just about stylesheet
+        bulk: a constrained system improves visual consistency and reduces
+        decision fatigue.
       </p>
 
       <p>
