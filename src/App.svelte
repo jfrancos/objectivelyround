@@ -114,8 +114,8 @@
     </div>
   </div>
   <a
-    target="_blank"
     class={["underline color-purple-700", showLimit || "invisible"]}
+    target="_blank"
     href="https://github.com/jfrancos/objectivelyround/issues"
     >Tell me about your BigInt use case</a
   >
@@ -126,8 +126,8 @@
       <p>
         Early versions of Tailwind encouraged a curated, constrained system of
         widths, padding values, and other sizes. This was not just about
-        stylesheet bulk: a constrained system also improves visual consistency
-        and reduces decision fatigue.
+        stylesheet bulk: a constrained system improves visual consistency and
+        reduces decision fatigue.
       </p>
 
       <p>
@@ -143,7 +143,7 @@
 
       <p>
         Taking that historical system as inspiration, I use a simple heuristic
-        for choosing sizes: Given a ballpark size, choose the roundest nearby
+        for choosing sizes: Given a ballpark value, choose the roundest nearby
         number possible, where “round” is defined* as how many times the number
         can be divided by 2.
       </p>
@@ -166,20 +166,30 @@
 
       <p>
         This site takes a target value and shows you its successive base-2
-        roundings. For fun, you can also explore rounding in arbitrary bases;
-        <Button variant="link" class="-mx-2" onclick={() => (showBase = !showBase)}
-          >click here</Button
+        roundings. Shown below is what this looks like for 1337. For fun, you
+        can also explore rounding in arbitrary bases;
+        <Button
+          variant="link"
+          class="-mx-2"
+          onclick={() => (showBase = !showBase)}>click here</Button
         > or press “b” to toggle that interface.
       </p>
 
-      <p>Please star the repo if you find this useful.</p>
+      <p>
+        <a
+          class="underline"
+          target="_blank"
+          href="https://github.com/jfrancos/objectivelyround/issues"
+          >Please star the repo if you happen to find this useful.</a
+        >
+      </p>
 
       <p class="text-sm">
         * Roundness is always relative to a base. In base 10, successive
         roundings of 1337 are 1340, 1300, and 1000: each step increases the
-        number of times it can be divided by 10. Defining roundness by
-        how many times a number can be divided by 2 just means we are rounding
-        in base 2 instead of base 10.
+        number of times it can be divided by 10. Defining roundness by how many
+        times a number can be divided by 2 just means we’re rounding in base 2
+        instead of base 10.
       </p>
 
       <p class="text-sm">
