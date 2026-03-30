@@ -4,13 +4,16 @@
   import { Input } from "$lib/components/ui/input";
   import { round } from "./lib/utils";
 
-  let base = $state(2);
-  let showBase = $state(true);
-  let target = $state(1337);
+  let baseInput = $state<number | null>(2);
+  let base = $derived<number>(baseInput ?? 2);
+  let targetInput = $state<number | null>(null);
+  let target = $derived<number>(targetInput ?? 1337);
+
+  let showBase = $state(false);
   let inputRef = $state<HTMLInputElement | null>(null);
   let showLimit = $state(false);
   const neighbors = $derived(
-    target > 0 && base >= 2 ? round(target, base) : [],
+    target > 0 && base >= 2 ? round(target ?? 0, base) : round(1337, 2),
   );
   onMount(() => inputRef?.focus());
   // $inspect(neighbors).with((_, item) =>
@@ -22,10 +25,16 @@
 
 <svelte:window
   onkeydown={({ key }) => {
+    const active = document.activeElement;
     if (key === "b") {
       base = 2;
       showBase = !showBase;
-    } else if (target === null && key.match(/[\d]/)) {
+    } else if (
+      targetInput === null &&
+      key.match(/[\d]/) &&
+      !(active?.localName === "input" && active !== inputRef)
+    ) {
+      console.dir(document.activeElement);
       inputRef?.focus();
     }
   }}
@@ -49,20 +58,21 @@
   <div class="flex justify-between w-full">
     <div class={["flex-1", showBase || "invisible"]}>
       <Input
-        onblur={() => {
-          if ((base ?? 0) < 2) base = 2;
-        }}
+        onblur={() => (baseInput = base < 2 ? 2 : baseInput)}
         autocomplete="off"
         inputmode="numeric"
         min={2}
-        class="md:w-24 w-20"
+        class={[
+          "md:w-24 w-20",
+          !targetInput && base !== 2 && "line-through opacity-50",
+        ]}
         placeholder="Base"
         type="number"
         bind:value={
-          () => base,
+          () => baseInput,
           (next) => {
-            if (target * next <= 2 ** 50) {
-              base = next === null ? next : Math.abs(Math.trunc(next));
+            if (target * (next ?? 0) <= 2 ** 50) {
+              baseInput = next === null ? next : Math.abs(Math.trunc(next));
               showLimit = false;
             } else {
               showLimit = true;
@@ -72,6 +82,7 @@
       />
     </div>
     <Input
+      onblur={() => (targetInput = target < 1 ? null : targetInput)}
       autocomplete="off"
       inputmode="numeric"
       class="w-32 md:w-48"
@@ -79,10 +90,10 @@
       placeholder="Target"
       bind:ref={inputRef}
       bind:value={
-        () => target,
+        () => targetInput,
         (next) => {
-          if (next * base <= 2 ** 50) {
-            target = next === null ? next : Math.abs(Math.trunc(next));
+          if ((next ?? 0) * base <= 2 ** 50) {
+            targetInput = next === null ? next : Math.abs(Math.trunc(next));
             showLimit = false;
           } else {
             showLimit = true;
@@ -110,6 +121,80 @@
   >
 </header>
 <main>
+  {#if !targetInput}
+    <div class="max-w-224 mx-auto py-12 flex flex-col gap-4 text-neutral-700">
+      <p>
+        Early versions of Tailwind encouraged a curated, constrained system of
+        widths, padding values, and other sizes. This was not just about
+        stylesheet bulk: a constrained system also improves visual consistency
+        and reduces decision fatigue.
+      </p>
+
+      <p>
+        Tailwind follows the common best practice of using <code>rem</code>
+        instead of
+        <code>px</code>. The default text size is, by definition,
+        <code>1rem</code>, and <code>1rem</code> is by default
+        <code>16px</code>. Centered around
+        <code>16px</code>, Tailwind’s curated values included powers of two,
+        with intermediate values placed at dyadic intervals between them. As
+        values got larger, the spacing between curated options also increased.
+      </p>
+
+      <p>
+        Taking that historical system as inspiration, I use a simple heuristic
+        for choosing sizes: Given a ballpark size, choose the roundest nearby
+        number possible, where “round” is defined* as how many times the number
+        can be divided by 2.
+      </p>
+
+      <p>
+        For example, 1337 is divisible by 2 zero times. But nearby 1344, which
+        is
+        <math class="font-sans">
+          <mn>21</mn>
+          <mo>×</mo>
+          <msup>
+            <mn>2</mn>
+            <mn>6</mn>
+          </msup>
+        </math>, is divisible by 2 six times: a roundness-level increase of 6.
+        Visually, 1344px (84rem) is indistinguishable from 1337px (83.5625rem).
+        If I ever see 1337px in a figma doc I am absolutely rounding to 1344px
+        without a second thought (sorry Kass**).
+      </p>
+
+      <p>
+        This site takes a target value and shows you its successive base-2
+        roundings. For fun, you can also explore rounding in arbitrary bases;
+        click the toggle or press “b” to reveal that interface.
+      </p>
+
+      <p>Please star the repo if you find this useful.</p>
+
+      <p class="text-sm">
+        * Roundness is always relative to a base. In base 10, successive
+        roundings of 1337 are 1340, 1300, and 1000: each step increases the
+        number of times the value can be divided by 10. Defining roundness by
+        how many times a number can be divided by 2 just means we are rounding
+        in base 2 instead of base 10.
+      </p>
+
+      <p class="text-sm">
+        ** If not <code>1280px</code> / <code>80rem</code>
+        <math class="font-sans ml-2">
+          <mo>(</mo>
+          <mn>5</mn>
+          <mo>×</mo>
+          <msup>
+            <mn>2</mn>
+            <mn>8</mn>
+          </msup><mo class="relative right-0.375">)</mo>
+        </math>
+      </p>
+    </div>
+  {/if}
+
   {#each neighbors as { num, exp, delta, coef, rank, primary }}
     {@const max = Math.max(...neighbors.map((item) => item.rank))}
     {@const percentage = max === 0 ? 0.5 : rank / max}
@@ -126,7 +211,7 @@
           <mn>{formatNumber(coef)}</mn>
           <mo>&times;</mo>
           <msup>
-            <mn>{base}</mn>
+            <mn>{base < 2 ? 2 : base}</mn>
             <mn class="font-black color-black text-0.6875rem">{exp}</mn>
           </msup>
         </math>
@@ -144,7 +229,7 @@
             delta === 0 && "hidden",
           ]}
         >
-          <mn>{formatNumber(target)}</mn>
+          <mn>{formatNumber(num - delta)}</mn>
           <mo>
             {delta > 0 ? "+" : delta < 0 ? "−" : ""}
           </mo>
@@ -156,19 +241,3 @@
     </div>
   {/each}
 </main>
-
-<!-- Early versions of Tailwind encouraged the use of a curated/constrained system of widths/padding/etc.  This wasn't just about stylesheet bulk: using a constrained system helps increase visual consistency and reduce desision fatigue.
-
-Tailwind sizing follows the best practice of using rem units instead of px, and the curated values were chosen based on the default font size being (by definition) 1rem which (by default) equals 16px.  Centering around 16px units, the curated values included powers of 2, and some dyadically-spaced values between powers of two.  The larger the scale, the more spaced out those curated values were.
-
-Combining these facts and this historical system, I persaonlly use a general heuristic to determine optimum sizes: for any ballpark number I'm considering, use the roundest nearby number possible, where round is defined* as "number of times you can divide by 2".
-
-For example: 1337 is divisible by 2 zero times.  But nearby 1344, being equal to 21 x 2^6, is divisible by 2 6 times - a roundness-level increase of 6.  Visually, 1344px (84rem) is identical to 1337px (83.5625rem).  If I ever see 1337px in a figma doc I am absolutely rounding to 1344px without a second thought (sorry Kass!**).
-
-
-This site is a tool that takes a target value and shows you successive base-2 roundings of that value.  For fun, you can also explore what rounding looks like in any arbitrary base - click here or press "b" to toggle that interface.
-
-
-*Roundness is inherently contingent on whatever base you're using.  In base 10, successive roundings of 1337 are 1340, 1300, 1000: we increase the number of times we can divide the number by our base (10).  Defining roundness by how many times you can divide by two, just means we're doing our rounding in base 2 instead of base 10.
-
-**If not 1280px / 80rem / 5 x 2^8 -->
