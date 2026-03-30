@@ -4,16 +4,18 @@
   import { Input } from "$lib/components/ui/input";
   import { round } from "./lib/utils";
 
-  let baseInput = $state<number | null>(2);
-  let base = $derived<number>(baseInput ?? 2);
   let targetInput = $state<number | null>(null);
   let target = $derived<number>(targetInput ?? 1337);
-
+  let baseInput = $state<number | null>(2);
+  let base = $derived<number>(
+    targetInput === null || (baseInput ?? 0) < 2 ? 2 : (baseInput ?? 2),
+  );
+  $inspect(base);
   let showBase = $state(false);
   let inputRef = $state<HTMLInputElement | null>(null);
   let showLimit = $state(false);
   const neighbors = $derived(
-    target > 0 && base >= 2 ? round(target ?? 0, base) : round(1337, 2),
+    target > 0 && base >= 2 ? round(target, base) : round(1337, 2),
   );
   onMount(() => inputRef?.focus());
   // $inspect(neighbors).with((_, item) =>
@@ -57,13 +59,16 @@
   <div class="flex justify-between w-full">
     <div class={["flex-1", showBase || "invisible"]}>
       <Input
-        onblur={() => (baseInput = base < 2 ? 2 : baseInput)}
+        onblur={() => (baseInput = (baseInput ?? 0) < 2 ? 2 : baseInput)}
         autocomplete="off"
         inputmode="numeric"
         min={2}
         class={[
           "md:w-24 w-20",
-          !targetInput && base !== 2 && "line-through opacity-50",
+          !targetInput &&
+            baseInput !== null &&
+            baseInput !== 2 &&
+            "line-through opacity-50",
         ]}
         placeholder="Base"
         type="number"
@@ -230,7 +235,7 @@
           <mn>{formatNumber(coef)}</mn>
           <mo>&times;</mo>
           <msup>
-            <mn>{base < 2 ? 2 : base}</mn>
+            <mn>{!targetInput ? 2 : base}</mn>
             <mn class="font-black color-black text-0.6875rem">{exp}</mn>
           </msup>
         </math>
