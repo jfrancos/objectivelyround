@@ -27,7 +27,7 @@
   onkeydown={({ key }) => {
     const active = document.activeElement;
     if (key === "b") {
-      base = 2;
+      baseInput = 2;
       showBase = !showBase;
     } else if (
       targetInput === null &&
@@ -139,7 +139,7 @@
       <p>
         Tailwind follows the common best practice of using <code>rem</code>
         instead of
-        <code>px</code>. The default text size is, by definition,
+        <code>px</code>. The default text size is by definition
         <code>1rem</code>, and <code>1rem</code> is by default
         <code>16px</code>. Centered around
         <code>16px</code>, Tailwind’s curated values included powers of two,
@@ -166,7 +166,7 @@
           </msup>
         </math>, is divisible by 2 six times: a roundness-level increase of 6.
         Visually, 1344px (84rem) is indistinguishable from 1337px (83.5625rem).
-        If I ever saw 1337px in a figma doc I would absolutely round to 1344px
+        If I ever saw 1337px in a Figma doc I would absolutely round to 1344px
         without a second thought (sorry Kass**).
       </p>
 
@@ -186,7 +186,7 @@
           class="underline"
           target="_blank"
           href="https://github.com/jfrancos/objectivelyround"
-          >Please star the repo if you happen to find this useful.</a
+          >If you find this useful, please star the repo.</a
         >
       </p>
 
