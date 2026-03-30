@@ -122,7 +122,7 @@
 </header>
 <main>
   {#if !targetInput}
-    <div class="max-w-224 mx-auto py-12 flex flex-col gap-4 text-neutral-700">
+    <div class="max-w-224 mx-auto pt-12 pb-4 flex flex-col gap-4 text-neutral-700">
       <p>
         Early versions of Tailwind encouraged a <a
           class="underline"
@@ -209,6 +209,7 @@
         </math>
       </p>
     </div>
+    <div class="flex justify-center py-4 font-medium">Target = 1337</div>
   {/if}
 
   {#each neighbors as { num, exp, delta, coef, rank, primary }}
