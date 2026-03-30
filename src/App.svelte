@@ -146,8 +146,10 @@
         <code>1rem</code>, and <code>1rem</code> is typically
         <code>16px</code>. Centered around
         <code>16px</code>, Tailwind’s curated values included powers of two,
-        with intermediate values placed at dyadic intervals between them. As
-        values got larger, the spacing between curated options also increased.
+        with intermediate values placed at dyadic intervals between them—for
+        example, 96px between 64px and 128px, then 80px between 64px and 96px.
+        As values got larger, the spacing between curated options also
+        increased.
       </p>
 
       <p>
