@@ -198,7 +198,7 @@
         roundings of 1337 are 1340, 1300, and 1000: each step increases the
         number of times it can be divided by 10. Defining roundness by how many
         times a number can be divided by 2 just means we’re rounding in base 2
-        instead of base 10.
+        (the smallest base for which rounding has meaning) instead of base 10.
       </p>
 
       <p class="text-xs">
