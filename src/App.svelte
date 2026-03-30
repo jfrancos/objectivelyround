@@ -122,7 +122,7 @@
 </header>
 <main>
   {#if !targetInput}
-    <div class="max-w-224 mx-auto pt-12 pb-4 flex flex-col gap-4 text-neutral-700">
+    <div class="max-w-224 mx-auto pt-12 pb-4 flex flex-col gap-4 text-neutral-700 px-4 md:px-8">
       <p>
         Early versions of Tailwind encouraged a <a
           class="underline"
