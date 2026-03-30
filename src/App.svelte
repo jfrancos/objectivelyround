@@ -143,7 +143,7 @@
         Tailwind follows the common best practice of using <code>rem</code>
         instead of
         <code>px</code>. A page’s base font size is by definition
-        <code>1rem</code>, and <code>1rem</code> is by default
+        <code>1rem</code>, and <code>1rem</code> is typically
         <code>16px</code>. Centered around
         <code>16px</code>, Tailwind’s curated values included powers of two,
         with intermediate values placed at dyadic intervals between them. As
