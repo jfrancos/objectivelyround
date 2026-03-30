@@ -34,7 +34,6 @@
       key.match(/[\d]/) &&
       !(active?.localName === "input" && active !== inputRef)
     ) {
-      console.dir(document.activeElement);
       inputRef?.focus();
     }
   }}
@@ -166,14 +165,14 @@
           </msup>
         </math>, is divisible by 2 six times: a roundness-level increase of 6.
         Visually, 1344px (84rem) is indistinguishable from 1337px (83.5625rem).
-        If I ever saw 1337px in a Figma doc I would absolutely round to 1344px
-        without a second thought (sorry Kass**).
+        If I ever saw 1337px in a Figma doc, I'd absolutely round that to
+        1344px** without a second thought (sorry Kass).
       </p>
 
       <p>
         This site takes a target value and shows you its successive base-2
-        roundings. Shown below is what this looks like for 1337. For fun, you
-        can also explore rounding in arbitrary bases;
+        roundings. Below is what that looks like for 1337. For fun, you can also
+        explore rounding in arbitrary bases;
         <Button
           variant="link"
           class="-mx-2"
@@ -190,7 +189,7 @@
         >
       </p>
 
-      <p class="text-sm">
+      <p class="text-xs">
         * Roundness is always relative to a base. In base 10, successive
         roundings of 1337 are 1340, 1300, and 1000: each step increases the
         number of times it can be divided by 10. Defining roundness by how many
@@ -198,9 +197,10 @@
         instead of base 10.
       </p>
 
-      <p class="text-sm">
-        ** If not <code>1280px</code> / <code>80rem</code>
-        <math class="font-sans ml-2">
+      <p class="text-xs">
+        ** If not <code>1280px</code> / <code>80rem</code><math
+          class="font-sans ml-2"
+        >
           <mo>(</mo>
           <mn>5</mn>
           <mo>×</mo>
