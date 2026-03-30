@@ -183,7 +183,7 @@
         <a
           class="underline"
           target="_blank"
-          href="https://github.com/jfrancos/objectivelyround/issues"
+          href="https://github.com/jfrancos/objectivelyround"
           >Please star the repo if you happen to find this useful.</a
         >
       </p>
