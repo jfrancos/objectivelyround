@@ -122,7 +122,9 @@
 </header>
 <main>
   {#if !targetInput}
-    <div class="max-w-224 mx-auto pt-12 pb-4 flex flex-col gap-4 text-neutral-700 px-4 md:px-8">
+    <div
+      class="max-w-224 mx-auto pt-12 pb-4 flex flex-col gap-4 text-neutral-700 px-4 md:px-8"
+    >
       <p>
         Early versions of Tailwind encouraged a <a
           class="underline"
@@ -164,7 +166,7 @@
           </msup>
         </math>, is divisible by 2 six times: a roundness-level increase of 6.
         Visually, 1344px (84rem) is indistinguishable from 1337px (83.5625rem).
-        If I ever see 1337px in a figma doc I am absolutely rounding to 1344px
+        If I ever saw 1337px in a figma doc I would absolutely round to 1344px
         without a second thought (sorry Kass**).
       </p>
 
