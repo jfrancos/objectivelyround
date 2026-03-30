@@ -167,7 +167,9 @@
       <p>
         This site takes a target value and shows you its successive base-2
         roundings. For fun, you can also explore rounding in arbitrary bases;
-        click the toggle or press “b” to reveal that interface.
+        <Button variant="link" class="-mx-2" onclick={() => (showBase = !showBase)}
+          >click here</Button
+        > or press “b” to toggle that interface.
       </p>
 
       <p>Please star the repo if you find this useful.</p>
@@ -175,7 +177,7 @@
       <p class="text-sm">
         * Roundness is always relative to a base. In base 10, successive
         roundings of 1337 are 1340, 1300, and 1000: each step increases the
-        number of times the value can be divided by 10. Defining roundness by
+        number of times it can be divided by 10. Defining roundness by
         how many times a number can be divided by 2 just means we are rounding
         in base 2 instead of base 10.
       </p>
