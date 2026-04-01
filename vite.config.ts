@@ -13,6 +13,18 @@ export default defineConfig({
 		unoCSS({
 			presets: [presetWind4, presetAnimations, presetShadcn, presetIcons],
 			transformers: [transformerVariantGroup()],
+			preflights: [
+				{
+					getCSS: () => `
+        code {
+          font-size: 0.9375em;
+          background: #eee;
+          padding-inline: 0.25rem;
+          border-radius: 0.25rem;
+        }
+      `,
+				},
+			],
 		}),
 	],
 	resolve: {

@@ -3,6 +3,8 @@
   import Button from "$lib/components/ui/button/button.svelte";
   import { Input } from "$lib/components/ui/input";
   import { round } from "./lib/utils";
+  import Pow2Form from "./Pow2Form.svelte";
+  import RemPx from "./RemPx.svelte";
 
   let targetInput = $state<number | null>(null);
   let target = $derived<number>(targetInput ?? 1337);
@@ -130,55 +132,122 @@
     >
       <p>
         Early versions of <a
+          rel="noreferrer"
           class="underline"
           target="_blank"
           href="https://tailwindcss.com">Tailwind</a
         >
-        encouraged a
+        encouraged use of a
         <a
+          rel="noreferrer"
           class="underline"
           target="_blank"
           href="https://v3.tailwindcss.com/docs/width"
           >curated, constrained system of widths</a
-        >, padding values, and other sizes. This had multiple benefits: beyond
-        reducing stylesheet bulk, it also improved visual consistency and
-        reduced decision fatigue.
+        >, padding values, and other sizes. This had multiple benefits: fewer
+        stylesheet rules, more visual consistency, and less decision fatigue.
       </p>
 
       <p>
         Tailwind follows the common best practice of using <code>rem</code>
-        instead of
-        <code>px</code>. A page’s base font size is by definition
-        <code>1rem</code>, and <code>1rem</code> is typically
-        <code>16px</code>. Centered around
-        <code>16px</code>, Tailwind’s curated values included powers of two,
-        with intermediate values placed at dyadic intervals between them—for
-        example, 96px between 64px and 128px, then 80px between 64px and 96px.
-        As values got larger, the spacing between curated options also
-        increased.
+        instead of <code>px</code>. A page’s base font size is, by definition,
+        <code>1rem</code>, and <code>1rem</code> is typically <code>16px</code>.
+        Thus, when thinking in <code>px</code>, it’s useful to keep
+        <code>16px</code> as a base unit in mind.
       </p>
 
       <p>
-        Taking that historical system as inspiration, I use a simple heuristic
-        for choosing sizes: Given a ballpark value, choose the roundest nearby
-        number possible, where “round” is defined* as how many times the number
-        can be divided by 2.
+        Using <RemPx px={16} /> as an anchor, Tailwind’s curated values included
+        powers of two, with selected intermediate values between them. As values
+        got larger, spacing between curated options also increased. This pattern
+        is easiest to see in px terms:
+      </p>
+
+      <div class="flex justify-evenly flex-wrap gap-6 p-1">
+        <div class="flex flex-col w-fit gap-0.5">
+          <div class="font-medium text-center">Smaller scale</div>
+          <div
+            class="grid grid-cols-[auto_auto] gap-x-2 items-baseline text-right"
+          >
+            <RemPx px={16} />
+            <Pow2Form coef={1} exp={4} parens class="text-sm" />
+            <RemPx px={20} />
+            <Pow2Form coef={5} exp={2} parens class="text-sm" />
+            <RemPx px={24} />
+            <Pow2Form coef={3} exp={3} parens class="text-sm" />
+            <RemPx px={28} />
+            <Pow2Form coef={7} exp={2} parens class="text-sm" />
+          </div>
+        </div>
+
+        <div class="flex flex-col w-fit gap-0.5">
+          <div class="font-medium text-center">Larger scale</div>
+          <div
+            class="grid grid-cols-[auto_auto] gap-x-2 items-baseline text-right"
+          >
+            <RemPx px={256} />
+            <Pow2Form coef={1} exp={8} parens class="text-sm" />
+            <RemPx px={288} />
+            <Pow2Form coef={9} exp={5} parens class="text-sm" />
+            <RemPx px={320} />
+            <Pow2Form coef={5} exp={6} parens class="text-sm" />
+            <RemPx px={384} />
+            <Pow2Form coef={3} exp={7} parens class="text-sm" />
+          </div>
+        </div>
+      </div>
+      <!-- <p>
+        These historical curated values preferred round numbers, where “round”
+        is defined* as how many times a number can be divided by 2. With
+        Tailwind <a
+          rel="noreferrer"
+          class="underline"
+          target="_blank"
+          href="https://x.com/adamwathan/status/1847360035548012856"
+          >no longer requiring brackets for arbitrary values</a
+        >, I continue to use this philosophy, both: when choosing sizes during
+        design, and when interpreting existing values from a source like Figma.
+      </p> -->
+
+      <p>
+        These historical curated values preferred round numbers, where “round”
+        is defined* as how many times a number can be divided by 2. With
+        Tailwind <a
+          rel="noreferrer"
+          class="underline"
+          target="_blank"
+          href="https://x.com/adamwathan/status/1847360035548012856"
+          >no longer requiring brackets for arbitrary values</a
+        >, I continue this philosophy with a general heuristic: when choosing
+        new sizes, or when interpreting existing ones from a source like Figma,
+        prefer the roundest nearby number that preserves the original intent.
       </p>
 
       <p>
-        For example, 1337 is divisible by 2 zero times. But nearby 1344, which
-        is
-        <math class="font-sans -mr-0.375">
-          <mn>21</mn>
-          <mo>×</mo>
-          <msup>
-            <mn>2</mn>
-            <mn>6</mn>
-          </msup>
-        </math>, is divisible by 2 six times: a roundness-level increase of 6.
-        Visually, 1344px (84rem) is indistinguishable from 1337px (83.5625rem).
-        If I ever saw 1337px in a Figma doc, I'd absolutely round that to
-        1344px** without a second thought (sorry Kass).
+        When designing, this often means feeling out a size by moving among
+        nearby base-2-round values: I might try <code>8rem</code>, then
+        <code>4rem</code>, then <code>6rem</code>, and so on until it looks
+        right.
+      </p>
+
+      <p>
+        When interpreting a Figma doc, it means following a little principled
+        rounding instead of staying pixel-perfect. If I see a value like
+        <code>1337px</code>, my instinct is to look for the roundest nearby
+        number that stays close to the original size, in this case
+        <code>1344px</code>.
+      </p>
+
+      <p>
+        1337 is divisible by 2 zero times. But nearby 1344 <Pow2Form
+          coef={21}
+          exp={6}
+          parens
+          class="-mr-0.375"
+        /> is divisible by 2 six times: a roundness-level increase of 6. Visually,
+        <code>1344px</code> (<code>84rem</code>) is indistinguishable from
+        <code>1337px</code> (<code>83.5625rem</code>). So every time I encounter
+        <code>1337px</code>, I'll round to <code>1344px</code>.
       </p>
 
       <p>
@@ -209,20 +278,6 @@
         times a number can be divided by 2 just means we’re rounding in base 2
         (the smallest base for which rounding has meaning) instead of base 10.
       </p>
-
-      <p class="text-xs">
-        ** If not <code>1280px</code> / <code>80rem</code><math
-          class="font-sans ml-2"
-        >
-          <mo>(</mo>
-          <mn>5</mn>
-          <mo>×</mo>
-          <msup>
-            <mn>2</mn>
-            <mn>8</mn>
-          </msup><mo class="relative right-0.375">)</mo>
-        </math>
-      </p>
     </div>
     <div class="flex justify-center py-4 font-medium">Target = 1337</div>
   {/if}
@@ -250,7 +305,7 @@
         <div
           class={[
             "text-xl font-mono",
-            primary ? "color-neutral-800" : "color-neutral-600",
+            primary ? "color-black" : "color-neutral-600",
           ]}
         >
           {formatNumber(num)}
