@@ -234,7 +234,7 @@
         When interpreting a Figma doc, it means following a little principled
         rounding instead of staying pixel-perfect. If I see a value like
         <code>1337px</code>, my instinct is to look for the roundest nearby
-        number that stays close to the original size, in this case
+        number that stays close to the original size. Here, that's
         <code>1344px</code>.
       </p>
 
