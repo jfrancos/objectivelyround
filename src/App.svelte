@@ -210,9 +210,8 @@
       </p> -->
 
       <p>
-        These historical curated values preferred round numbers, where “round”
-        is defined* as how many times a number can be divided by 2. With
-        Tailwind <a
+        These historical curated values preferred round numbers, with “round”
+        defined* as how many times a number can be divided by 2. With Tailwind <a
           rel="noreferrer"
           class="underline"
           target="_blank"
