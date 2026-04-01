@@ -196,18 +196,6 @@
           </div>
         </div>
       </div>
-      <!-- <p>
-        These historical curated values preferred round numbers, where “round”
-        is defined* as how many times a number can be divided by 2. With
-        Tailwind <a
-          rel="noreferrer"
-          class="underline"
-          target="_blank"
-          href="https://x.com/adamwathan/status/1847360035548012856"
-          >no longer requiring brackets for arbitrary values</a
-        >, I continue to use this philosophy, both: when choosing sizes during
-        design, and when interpreting existing values from a source like Figma.
-      </p> -->
 
       <p>
         These historical curated values preferred round numbers, with “round”
