@@ -213,14 +213,15 @@
         <a href="#note-base-2-round" id="ref-base-2-round">
           <span class="underline decoration-dotted">defined</span><sup>*</sup>
         </a>
-        as how many times a number can be divided by 2. With Tailwind
+        as how many times a number can be divided by 2 (shown above by the exponent).
+        With Tailwind
         <a
           rel="noreferrer"
           class="underline"
           target="_blank"
           href="https://x.com/adamwathan/status/1847360035548012856"
           >no longer requiring brackets for arbitrary values</a
-        >, I still apply this general idea: when choosing a new size, or when
+        >, I still apply this general idea: when choosing a size, or
         interpreting existing sizes from a source like Figma, prefer
         base-2-rounder numbers.
       </p>
