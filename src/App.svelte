@@ -128,7 +128,7 @@
 <main>
   {#if !targetInput}
     <div
-      class="max-w-224 mx-auto pt-12 pb-4 flex flex-col gap-4 text-neutral-700 px-4 md:px-8"
+      class="max-w-224 mx-auto pt-8 pb-4 flex flex-col gap-4 text-neutral-700 px-4 md:px-8"
     >
       <h1
         class="text-3xl font-bold tracking-tight text-center color-neutral-900"
