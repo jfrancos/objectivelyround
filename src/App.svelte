@@ -168,9 +168,9 @@
       </p> -->
 
       <p>
-        Using <RemPx px={16} symbol="≈" /> as an anchor, Tailwind’s curated values
-        included powers of two, with selected intermediate values between them. As
-        values got larger, spacing between curated options also increased. This pattern
+        Using <RemPx px={16} /> as an anchor, Tailwind’s curated values included
+        powers of two, with selected intermediate values between them. As values
+        got larger, spacing between curated options also increased. This pattern
         is easiest to see in px terms:
       </p>
 
