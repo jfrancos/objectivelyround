@@ -253,8 +253,9 @@
 
       <p>
         This site takes a target value and shows you its successive base-2
-        roundings. Below is what that looks like for 1337. For fun, you can also
-        explore rounding in arbitrary bases;
+        roundings. If a number is dimmed, it means there's an equally round or
+        rounder number closer to the target. Below is what that looks like for
+        1337. For fun, you can also explore rounding in arbitrary bases;
         <Button
           variant="link"
           class="-mx-2"
