@@ -249,7 +249,7 @@
         /> is divisible by 2 six times: a roundness-level increase of 6. Visually,
         <code>1344px</code> (<code>84rem</code>) is indistinguishable from
         <code>1337px</code> (<code>83.5625rem</code>). So if I ever encounter
-        <code>1337px</code>, I’ll nudge that to <code>1344px</code>.
+        <code>1337px</code>, I’ll probably nudge it to <code>1344px</code>.
       </p>
 
       <p>
