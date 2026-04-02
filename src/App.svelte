@@ -2,6 +2,7 @@
   import { onMount } from "svelte";
   import Button from "$lib/components/ui/button/button.svelte";
   import { Input } from "$lib/components/ui/input";
+  import boston from "./assets/boston.svg";
   import { round } from "./lib/utils";
   import Pow2Form from "./Pow2Form.svelte";
   import RemPx from "./RemPx.svelte";
@@ -125,7 +126,7 @@
     >Tell me about your BigInt use case</a
   >
 </header>
-<main>
+<main class="flex-1">
   {#if !targetInput}
     <div
       class="max-w-224 mx-auto pt-8 pb-4 flex flex-col gap-4 text-neutral-700 px-4 md:px-8"
@@ -331,8 +332,64 @@
     </div>
   {/each}
 </main>
+<footer
+  class="py-4 max-w-256 w-full mx-auto px-4 md:px-8 flex text-xs sm:items-end sm:justify-evenly [&_a]:underline pb-4 flex-wrap sm:flex-row flex-col items-center sm:gap-0 gap-8"
+>
+  <div class="flex-1">
+    <div class="flex flex-col items-center gap-1.5 whitespace-nowrap w-fit">
+      Other projects:
+      <a href="https://oklch.beauty" target="_blank" rel="noopener noreferrer"
+        >oklch.beauty</a
+      >
+      <a href="https://slidytabs.dev" target="_blank" rel="noopener noreferrer"
+        >slidytabs.dev</a
+      >
+    </div>
+  </div>
+  <div class="flex flex-col">
+    <img alt="Boston skyline" class="opacity-50 h-32 -mt-8" src={boston} />
+    Made with love in Camberville, MA
+  </div>
+  <div class="flex gap-4 flex-1 justify-end">
+    <a
+      class="-m-1.5 p-1.5 hover:text-#529BBA"
+      href="https://www.linkedin.com/in/justinfrancos"
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label="Linkedin"
+    >
+      <div class="i-mdi:linkedin size-8"></div>
+    </a>
+    <a
+      class="-m-1.5 p-1.5 hover:text-#529BBA"
+      href="https://github.com/jfrancos"
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label="Github"
+    >
+      <div class="size-8 i-mdi:github"></div>
+    </a>
+    <a
+      class="-m-1.5 p-1.5 hover:text-#529BBA"
+      href="https://jfrancos.github.io/music.html"
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label="Music"
+    >
+      <div class="size-8 i-mdi:music"></div>
+    </a>
+    <a
+      class="-m-1.5 p-1.5 hover:text-#529BBA"
+      href="mailto:justinfrancos@gmail.com"
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label="Email"
+    >
+      <div class="size-8 i-mdi:email-outline"></div>
+    </a>
+  </div>
+</footer>
 
 <!-- linkedin?
 input size?
-awesome sites?
-footer -->
+awesome sites? footer -->
