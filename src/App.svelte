@@ -170,8 +170,8 @@
 
       <p>
         Using <RemPx px={16} /> as an anchor, Tailwind’s curated values included
-        powers of two, with selected intermediate values. As values got larger, spacing
-        between them also increased:
+        powers of two, with selected intermediate values. As the numbers got larger,
+        spacing between them also increased:
       </p>
 
       <div class="flex justify-evenly flex-wrap gap-6 p-1">
