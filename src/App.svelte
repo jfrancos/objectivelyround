@@ -233,10 +233,11 @@
       </p>
 
       <p>
-        When interpreting a Figma doc, it means following a little principled
+        When interpreting a Figma doc, it means allowing some principled
         rounding instead of staying pixel-perfect. If I see a value like
-        <code>1337px</code>, I’ll look for the roundest nearby number that stays
-        close to the original size. Here, that’s <code>1344px</code>.
+        <code>1337px</code>, I’ll look for the roundest nearby number that
+        preserves the original intent. In this case, perhaps
+        <code>1344px</code>.
       </p>
 
       <p>
