@@ -236,8 +236,8 @@
       <p>
         When interpreting a Figma doc, it means following a little principled
         rounding instead of staying pixel-perfect. If I see a value like
-        <code>1337px</code>, I'll look for the roundest nearby number that stays
-        close to the original size. Here, that's <code>1344px</code>.
+        <code>1337px</code>, I’ll look for the roundest nearby number that stays
+        close to the original size. Here, that’s <code>1344px</code>.
       </p>
 
       <p>
@@ -249,14 +249,15 @@
         /> is divisible by 2 six times: a roundness-level increase of 6. Visually,
         <code>1344px</code> (<code>84rem</code>) is indistinguishable from
         <code>1337px</code> (<code>83.5625rem</code>). So if I ever encounter
-        <code>1337px</code>, I'll nudge that to <code>1344px</code>.
+        <code>1337px</code>, I’ll nudge that to <code>1344px</code>.
       </p>
 
       <p>
         This site takes a target value and shows you its successive base-2
-        roundings. If a number is dimmed, it means there's an equally round or
-        rounder number closer to the target. Below is what that looks like for
-        1337. For fun, you can also explore rounding in arbitrary bases;
+        roundings. If a number is dimmed, it means there’s an equally round or
+        rounder number that’s closer to the target. Below is what that looks
+        like for 1337. For fun, you can also explore rounding in arbitrary
+        bases;
         <Button
           variant="link"
           class="-mx-2"
