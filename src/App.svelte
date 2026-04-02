@@ -220,9 +220,9 @@
           target="_blank"
           href="https://x.com/adamwathan/status/1847360035548012856"
           >no longer requiring brackets for arbitrary values</a
-        >, I still apply this general idea: when choosing new sizes, or when
-        interpreting existing ones from a source like Figma, prefer the
-        base-2-roundest nearby number that best preserves the original intent.
+        >, I still apply this general idea: when choosing a new size, or when
+        interpreting existing sizes from a source like Figma, prefer
+        base-2-rounder values.
       </p>
 
       <p>
