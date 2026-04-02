@@ -222,7 +222,7 @@
           >no longer requiring brackets for arbitrary values</a
         >, I still apply this general idea: when choosing a new size, or when
         interpreting existing sizes from a source like Figma, prefer
-        base-2-rounder values.
+        base-2-rounder numbers.
       </p>
 
       <p>
