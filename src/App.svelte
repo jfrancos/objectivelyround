@@ -390,5 +390,8 @@
   </div>
 </footer>
 
-<!-- linkedin?
-awesome sites? -->
+<!--
+linkedin
+awesome sites
+link spacing
+-->
