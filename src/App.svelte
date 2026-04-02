@@ -129,14 +129,14 @@
 <main class="flex-1">
   {#if !targetInput}
     <div
-      class="max-w-224 mx-auto pt-8 pb-4 flex flex-col gap-4 text-neutral-700 px-4 md:px-8"
+      class="max-w-224 mx-auto pt-8 pb-4 flex flex-col gap-4 text-neutral-800 px-4 md:px-8"
     >
       <h1
         class="text-3xl font-bold tracking-tight text-center color-neutral-900"
       >
         Base-2 Rounding
       </h1>
-      <h2 class="text-xl text-neutral-800 text-center font-medium">
+      <h2 class="text-xl text-neutral-900 text-center font-medium">
         A CSS Spacing and Sizing Meta-System
       </h2>
       <h3 class="text-center text-sm text-neutral-900">
@@ -393,8 +393,9 @@
 </footer>
 
 <!--
-linkedin
+linkedin?
 awesome sites
 link spacing
 tailwind hover: the modern mechanism for applying css to html
+shadcn buttons for footer
 -->
