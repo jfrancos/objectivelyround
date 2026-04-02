@@ -171,7 +171,7 @@
       <p>
         Using <RemPx px={16} /> as an anchor, Tailwind’s curated values included
         powers of two, with selected intermediate values. As values got larger, spacing
-        between curated options also increased. This pattern is easiest to see in
+        between curated options also increased. The pattern is easiest to see in
         px terms:
       </p>
 
