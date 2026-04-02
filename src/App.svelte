@@ -332,9 +332,7 @@
   {/each}
 </main>
 
-<!-- footnote https://chatgpt.com/c/69cd4936-9880-8333-a056-81a4c0d0f0be
- suggestions https://chatgpt.com/c/69c9c35a-2168-832e-86c9-2733ebfa37fc
-// other domains?
-// linkedin?
+<!-- linkedin?
 input size?
-// awesome sites? -->
+awesome sites?
+footer -->
