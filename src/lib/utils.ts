@@ -62,7 +62,3 @@ export const round = (target: number, base: number) => {
 		.map((item) => ({ ...item, rank: exp - item.exp - 1 }))
 		.toSorted((a, b) => a.num - b.num);
 };
-
-// other domains?
-// linkedin?
-// awesome sites?

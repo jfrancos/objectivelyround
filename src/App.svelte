@@ -130,6 +130,17 @@
     <div
       class="max-w-224 mx-auto pt-12 pb-4 flex flex-col gap-4 text-neutral-700 px-4 md:px-8"
     >
+      <h1
+        class="text-3xl font-bold tracking-tight text-center color-neutral-900"
+      >
+        Base-2 Rounding
+      </h1>
+      <h2 class="text-xl text-neutral-800 text-center font-medium">
+        A CSS Spacing and Sizing Meta-System
+      </h2>
+      <h3 class="text-center text-sm text-neutral-900">
+        In the new world of bracketless arbitrary Tailwind values
+      </h3>
       <p>
         Early versions of <a
           rel="noreferrer"
@@ -148,18 +159,18 @@
         stylesheet rules, more visual consistency, and less decision fatigue.
       </p>
 
-      <p>
+      <!-- <p>
         Tailwind follows the common best practice of using <code>rem</code>
         instead of <code>px</code>. A page’s base font size is, by definition,
         <code>1rem</code>, and <code>1rem</code> is typically <code>16px</code>.
         Thus, when thinking in <code>px</code>, it’s useful to keep
         <code>16px</code> as a base unit in mind.
-      </p>
+      </p> -->
 
       <p>
-        Using <RemPx px={16} /> as an anchor, Tailwind’s curated values included
-        powers of two, with selected intermediate values between them. As values
-        got larger, spacing between curated options also increased. This pattern
+        Using <RemPx px={16} symbol="≈" /> as an anchor, Tailwind’s curated values
+        included powers of two, with selected intermediate values between them. As
+        values got larger, spacing between curated options also increased. This pattern
         is easiest to see in px terms:
       </p>
 
@@ -199,20 +210,24 @@
 
       <p>
         These historical curated values preferred round numbers, with “round”
-        defined* as how many times a number can be divided by 2. With Tailwind <a
+        <a href="#note-base-2-round" id="ref-base-2-round">
+          <span class="underline decoration-dotted">defined</span><sup>*</sup>
+        </a>
+        as how many times a number can be divided by 2. With Tailwind
+        <a
           rel="noreferrer"
           class="underline"
           target="_blank"
           href="https://x.com/adamwathan/status/1847360035548012856"
           >no longer requiring brackets for arbitrary values</a
-        >, I continue this philosophy with a general heuristic: when choosing
-        new sizes, or when interpreting existing ones from a source like Figma,
-        prefer the roundest nearby number that preserves the original intent.
+        >, I still apply this general idea: when choosing new sizes, or when
+        interpreting existing ones from a source like Figma, prefer the
+        base-2-roundest nearby number that best preserves the original intent.
       </p>
 
       <p>
-        When designing, this often means feeling out a size by moving among
-        nearby base-2-round values: I might try <code>8rem</code>, then
+        When designing, this means feeling out a size by moving among nearby
+        base-2-round values: I might try <code>8rem</code>, then
         <code>4rem</code>, then <code>6rem</code>, and so on until it looks
         right.
       </p>
@@ -220,9 +235,8 @@
       <p>
         When interpreting a Figma doc, it means following a little principled
         rounding instead of staying pixel-perfect. If I see a value like
-        <code>1337px</code>, my instinct is to look for the roundest nearby
-        number that stays close to the original size. Here, that's
-        <code>1344px</code>.
+        <code>1337px</code>, I'll look for the roundest nearby number that stays
+        close to the original size. Here, that's <code>1344px</code>.
       </p>
 
       <p>
@@ -233,8 +247,8 @@
           class="-mr-0.375"
         /> is divisible by 2 six times: a roundness-level increase of 6. Visually,
         <code>1344px</code> (<code>84rem</code>) is indistinguishable from
-        <code>1337px</code> (<code>83.5625rem</code>). So every time I encounter
-        <code>1337px</code>, I'll round to <code>1344px</code>.
+        <code>1337px</code> (<code>83.5625rem</code>). So if I ever encounter
+        <code>1337px</code>, I'll nudge that to <code>1344px</code>.
       </p>
 
       <p>
@@ -258,12 +272,13 @@
         >.
       </p>
 
-      <p class="text-xs">
+      <p class="text-xs" id="note-base-2-round">
         * Roundness is always relative to a base. In base 10, successive
         roundings of 1337 are 1340, 1300, and 1000: each step increases the
         number of times it can be divided by 10. Defining roundness by how many
         times a number can be divided by 2 just means we’re rounding in base 2
         (the smallest base for which rounding has meaning) instead of base 10.
+        <a href="#ref-base-2-round" aria-label="Back to reference">↩</a>
       </p>
     </div>
     <div class="flex justify-center py-4 font-medium">Target = 1337</div>
@@ -315,3 +330,10 @@
     </div>
   {/each}
 </main>
+
+<!-- footnote https://chatgpt.com/c/69cd4936-9880-8333-a056-81a4c0d0f0be
+ suggestions https://chatgpt.com/c/69c9c35a-2168-832e-86c9-2733ebfa37fc
+// other domains?
+// linkedin?
+input size?
+// awesome sites? -->
