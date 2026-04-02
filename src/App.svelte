@@ -391,5 +391,4 @@
 </footer>
 
 <!-- linkedin?
-input size?
-awesome sites? footer -->
+awesome sites? -->
