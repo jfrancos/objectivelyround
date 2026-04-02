@@ -91,7 +91,7 @@
       onblur={() => (targetInput = target < 1 ? null : targetInput)}
       autocomplete="off"
       inputmode="numeric"
-      class="w-32 md:w-48"
+      class="w-40 md:w-48"
       type="number"
       placeholder="Target"
       bind:ref={inputRef}
