@@ -143,18 +143,12 @@
         In the new world of bracketless arbitrary Tailwind values
       </h3>
       <p>
-        Early versions of <a
-          rel="noreferrer"
-          class="underline"
-          target="_blank"
-          href="https://tailwindcss.com">Tailwind</a
-        >
-        encouraged use of a
+        Early versions of Tailwind CSS encouraged use of a
         <a
           rel="noreferrer"
           class="underline"
           target="_blank"
-          href="https://v3.tailwindcss.com/docs/width"
+          href="https://v3.tailwindcss.com/docs/customizing-spacing#default-spacing-scale"
           >curated, constrained system of widths</a
         >, padding values, and other sizes. This had multiple benefits: fewer
         stylesheet rules, more visual consistency, and less decision fatigue.
@@ -213,7 +207,7 @@
         <a href="#note-base-2-round" id="ref-base-2-round">
           <span class="underline decoration-dotted">defined</span><sup>*</sup>
         </a>
-        as how many times a number can be divided by 2 (indicated above by the exponent).
+        as how many times a number can be divided by 2 (shown above as the exponent).
         With Tailwind
         <a
           rel="noreferrer"

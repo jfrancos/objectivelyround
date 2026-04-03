@@ -20,7 +20,7 @@
     <mo>×</mo>
     <msup>
         <mn>2</mn>
-        <mn class="font-semibold color-neutral-950">{exp}</mn>
+        <mn class="font-black color-black">{exp}</mn>
     </msup>
     {#if parens}
         <mo class="relative right-0.375">)</mo>
