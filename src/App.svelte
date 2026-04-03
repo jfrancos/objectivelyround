@@ -151,8 +151,8 @@
               In the new world of bracketless arbitrary Tailwind values</PopoverTrigger
             ><PopoverContent
               class="bg-foreground text-background text-xs text-balance rounded-md px-3 py-2 w-fit max-w-64"
-              >Also relevant for historically value-agnostic tools such as
-              UnoCSS
+              >This site is also relevant for historically value-agnostic tools
+              such as UnoCSS
             </PopoverContent>
           </Popover>
         </p>
