@@ -394,8 +394,3 @@
     </Button>
   </div>
 </footer>
-
-<!--
-linkedin?
-tailwind hover: a primary mechanism for applying css to html
--->
