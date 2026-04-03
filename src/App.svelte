@@ -332,7 +332,7 @@
   class="py-4 max-w-256 w-full mx-auto px-4 md:px-8 flex text-xs sm:items-end sm:justify-evenly [&_a]:underline pb-4 flex-wrap sm:flex-row flex-col items-center sm:gap-0 gap-8"
 >
   <div class="flex-1">
-    <div class="flex flex-col items-center gap-1.5 whitespace-nowrap w-fit">
+    <div class="flex flex-col items-center gap-2 whitespace-nowrap w-fit">
       Other projects:
       <a href="https://oklch.beauty" target="_blank" rel="noopener noreferrer"
         >oklch.beauty</a
