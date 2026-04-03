@@ -146,19 +146,20 @@
           A CSS Spacing and Sizing Meta-System
         </p>
         <p class="text-center text-sm text-neutral-900">
-          In the new world of bracketless arbitrary Tailwind values
+          <Popover
+            ><PopoverTrigger class="underline decoration-dotted">
+              In the new world of bracketless arbitrary Tailwind values</PopoverTrigger
+            ><PopoverContent
+              class="bg-foreground text-background text-xs text-balance rounded-md px-3 py-2 w-fit max-w-64"
+              >Also relevant for historically value-agnostic tools such as
+              UnoCSS
+            </PopoverContent>
+          </Popover>
         </p>
       </header>
       <section class="flex flex-col gap-4">
         <p>
-          Early versions of <Popover
-            ><PopoverTrigger class="underline decoration-dotted"
-              >Tailwind CSS</PopoverTrigger
-            ><PopoverContent
-              class="bg-foreground text-background text-xs text-balance rounded-md px-3 py-2 w-fit max-w-64"
-              >Tailwind CSS is a standard framework for styling HTML with CSS.</PopoverContent
-            >
-          </Popover> encouraged use of a
+          Early versions of Tailwind CSS encouraged use of a
           <a
             rel="noreferrer"
             class="underline"
@@ -218,7 +219,7 @@
         </div>
 
         <p>
-          These historical curated values preferred round numbers, with “round”
+          These curated values preferred round numbers, with “round”
           <a href="#note-base-2-round" id="ref-base-2-round">
             <span class="underline decoration-dotted">defined</span><sup>*</sup>
           </a>
