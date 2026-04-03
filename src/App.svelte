@@ -334,10 +334,10 @@
   <div class="flex-1">
     <div class="flex flex-col items-center gap-2 whitespace-nowrap w-fit">
       Other projects:
-      <a href="https://oklch.beauty" target="_blank" rel="noopener noreferrer"
+      <a href="https://oklch.beauty" target="_blank" rel="noreferrer"
         >oklch.beauty</a
       >
-      <a href="https://slidytabs.dev" target="_blank" rel="noopener noreferrer"
+      <a href="https://slidytabs.dev" target="_blank" rel="noreferrer"
         >slidytabs.dev</a
       >
     </div>
@@ -346,50 +346,39 @@
     <img alt="Boston skyline" class="opacity-50 h-32 -mt-8" src={boston} />
     Made with love in Camberville, MA
   </div>
-  <div class="flex gap-4 flex-1 justify-end">
-    <a
-      class="-m-1.5 p-1.5 hover:text-#529BBA"
-      href="https://www.linkedin.com/in/justinfrancos"
-      target="_blank"
-      rel="noopener noreferrer"
-      aria-label="Linkedin"
-    >
-      <div class="i-mdi:linkedin size-8"></div>
-    </a>
-    <a
-      class="-m-1.5 p-1.5 hover:text-#529BBA"
+  <div class="flex gap-2 flex-1 justify-end">
+    <Button
+      class="hover:text-#529BBA"
+      variant="ghost"
       href="https://github.com/jfrancos"
       target="_blank"
-      rel="noopener noreferrer"
+      rel="noreferrer"
       aria-label="Github"
     >
-      <div class="size-8 i-mdi:github"></div>
-    </a>
-    <a
-      class="-m-1.5 p-1.5 hover:text-#529BBA"
+      <div class="size-6 i-mdi:github"></div>
+    </Button>
+    <Button
+      class="hover:text-#529BBA"
+      variant="ghost"
       href="https://jfrancos.github.io/music.html"
       target="_blank"
-      rel="noopener noreferrer"
+      rel="noreferrer"
       aria-label="Music"
     >
-      <div class="size-8 i-mdi:music"></div>
-    </a>
-    <a
-      class="-m-1.5 p-1.5 hover:text-#529BBA"
+      <div class="size-6 i-mdi:music"></div>
+    </Button>
+    <Button
+      class="hover:text-#529BBA"
+      variant="ghost"
       href="mailto:justinfrancos@gmail.com"
-      target="_blank"
-      rel="noopener noreferrer"
       aria-label="Email"
     >
-      <div class="size-8 i-mdi:email-outline"></div>
-    </a>
+      <div class="size-6 i-mdi:email-outline"></div>
+    </Button>
   </div>
 </footer>
 
 <!--
 linkedin?
-awesome sites
-link spacing
-tailwind hover: the modern mechanism for applying css to html
-shadcn buttons for footer
+tailwind hover: a primary mechanism for applying css to html
 -->
