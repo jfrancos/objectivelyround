@@ -151,8 +151,8 @@
               In the new world of bracketless arbitrary Tailwind values</PopoverTrigger
             ><PopoverContent
               class="bg-foreground text-background text-xs text-balance rounded-md px-3 py-2 w-fit max-w-64"
-              >This site is also relevant for historically value-agnostic tools
-              such as UnoCSS
+              >This site is also relevant for historically value-agnostic
+              utility-class tools such as UnoCSS
             </PopoverContent>
           </Popover>
         </p>
@@ -260,7 +260,7 @@
           /> is divisible by 2 six times: a roundness-level increase of 6. Visually,
           <code>1344px</code> (<code>84rem</code>) is indistinguishable from
           <code>1337px</code> (<code>83.5625rem</code>). So if I ever encounter
-          <code>1337px</code>, I’ll probably nudge it to <code>1344px</code>.
+          <code>1337px</code>, I’ll probably nudge that to <code>1344px</code>.
         </p>
 
         <p>
