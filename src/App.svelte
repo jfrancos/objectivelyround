@@ -223,8 +223,8 @@
           <a href="#note-base-2-round" id="ref-base-2-round">
             <span class="underline decoration-dotted">defined</span><sup>*</sup>
           </a>
-          as how many times a number can be divided by 2 (shown above as the exponent).
-          With Tailwind
+          as how many times a number can be divided by 2 (shown above as the exponent
+          on 2). With Tailwind
           <a
             rel="noreferrer"
             class="underline"
