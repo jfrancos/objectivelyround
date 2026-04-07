@@ -136,7 +136,7 @@
     {@const percentage = max === 0 ? 0.5 : rank / max}
     <div
       class="px-6 h-20 flex items-center"
-      style:background-color={`oklch(${1 - 0.375 * percentage} 0.1 301.5)`}
+      style:background-color={`oklch(${1 - 0.375 * percentage} 0.125 301.5)`}
     >
       <div
         class="relative flex items-end flex-col"
@@ -153,7 +153,7 @@
         </math>
         <div
           class={[
-            "text-xl font-mono",
+            "text-lg font-mono",
             primary ? "color-black" : "color-neutral-600",
           ]}
         >
