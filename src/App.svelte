@@ -135,12 +135,12 @@
     {@const max = Math.max(...neighbors.map((item) => item.rank))}
     {@const percentage = max === 0 ? 0.5 : rank / max}
     <div
-      class="px-6 flex items-center"
+      class="px-12 flex relative"
       style:background-color={`oklch(${1 - 0.375 * percentage} 0.134 301.5)`}
     >
-      <div class="inset-x-4 absolute">
+      <div class="inset-x-6 absolute inset-y-1/3">
         <div
-          class="h-6.5 bg-[oklch(.797_0.134_211.5)] rounded-xs"
+          class="h-full bg-[oklch(.797_0.134_211.5)] rounded-xs"
           style:width={`${(100 * num) / neighbors[neighbors.length - 1].num}%`}
           style:max-width={`${num}px`}
         ></div>
@@ -151,7 +151,7 @@
         style:left={`${100 * percentage}%`}
         style:transform={`translateX(${-100 * percentage}%)`}
       >
-        <div class="h-6.5 flex items-end">
+        <div class="h-6 flex items-end">
           <math class="color-neutral-600 text-sm font-sans">
             <mn>{formatNumber(coef)}px</mn>
             <mo>&times;</mo>
@@ -172,7 +172,7 @@
           {formatNumber(num / 16)}rem ·
           {formatNumber(num)}px
         </div>
-        <div class="text-sm color-neutral-600 h-6.5 leading-tight">
+        <div class="text-sm color-neutral-600 h-6 leading-none">
           {#if delta === 0}
             <div class="color-neutral-800">Target</div>
           {:else}
