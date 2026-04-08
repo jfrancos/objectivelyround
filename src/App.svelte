@@ -2,9 +2,11 @@
   import { onMount } from "svelte";
   import { Button } from "$lib/components/ui/button";
   import { Input } from "$lib/components/ui/input";
+  import { Tabs, TabsList, TabsTrigger } from "$lib/components/ui/tabs";
   import boston from "./assets/boston.svg";
   import Exposition from "./Exposition.svelte";
   import { round } from "./lib/utils";
+  import TabsContent from "$lib/components/ui/tabs/tabs-content.svelte";
 
   let targetInput = $state<number | null>(null);
   let target = $derived<number>(targetInput ?? 1337);
@@ -22,8 +24,8 @@
   // $inspect(neighbors).with((_, item) =>
   //   console.log(JSON.stringify(item, undefined, 2)),
   // );
-  const formatNumber = (number: number) => number;
-  // number.toLocaleString(undefined, { useGrouping: "min2" });
+  const formatNumber = (number: number) =>
+    number.toLocaleString(undefined, { useGrouping: "min2" });
 </script>
 
 <svelte:window
@@ -59,7 +61,7 @@
   </div>
   <div class="flex justify-between w-full">
     <div class={["flex-1", showBase || "invisible"]}>
-      <Input
+      <!-- <Input
         onblur={() => (baseInput = (baseInput ?? 0) < 2 ? 2 : baseInput)}
         autocomplete="off"
         inputmode="numeric"
@@ -84,28 +86,40 @@
             }
           }
         }
-      />
+      /> -->
     </div>
-    <Input
-      onblur={() => (targetInput = target < 1 ? null : targetInput)}
-      autocomplete="off"
-      inputmode="numeric"
-      class="w-40 md:w-48"
-      type="number"
-      placeholder="Target"
-      bind:ref={inputRef}
-      bind:value={
-        () => targetInput,
-        (next) => {
-          if ((next ?? 0) * base <= 2 ** 50) {
-            targetInput = next === null ? next : Math.abs(Math.trunc(next));
-            showLimit = false;
-          } else {
-            showLimit = true;
+    <div class="flex gap-4">
+      <Input
+        onblur={() => (targetInput = target < 1 ? null : targetInput)}
+        autocomplete="off"
+        inputmode="numeric"
+        class="w-40 md:w-48"
+        type="number"
+        placeholder="Target"
+        bind:ref={inputRef}
+        bind:value={
+          () => targetInput,
+          (next) => {
+            if ((next ?? 0) * base <= 2 ** 50) {
+              targetInput = next === null ? next : Math.abs(Math.trunc(next));
+              showLimit = false;
+            } else {
+              showLimit = true;
+            }
           }
         }
-      }
-    />
+      />
+      <!-- <Tabs value="rem">
+        <TabsList>
+          <TabsTrigger value="scale">scale</TabsTrigger>
+          <TabsTrigger value="rem">rem</TabsTrigger>
+          <TabsTrigger value="px">px</TabsTrigger>
+        </TabsList>
+        <TabsContent value="scale" />
+        <TabsContent value="rem" />
+        <TabsContent value="px" />
+      </Tabs> -->
+    </div>
     <div class="flex-1 flex justify-end">
       <Button
         aria-label="github repository"
@@ -135,23 +149,21 @@
     {@const max = Math.max(...neighbors.map((item) => item.rank))}
     {@const percentage = max === 0 ? 0.5 : rank / max}
     <div
-      class="px-12 flex relative"
-      style:background-color={`oklch(${1 - 0.375 * percentage} 0.134 301.5)`}
+      class="flex relative"
+      style:background-color={`oklch(${0.9375 - 0.375 * percentage} 0.134 301.5)`}
     >
-      <div class="inset-x-6 absolute inset-y-1/3">
-        <div
-          class="h-full bg-[oklch(.797_0.134_211.5)] rounded-xs"
-          style:width={`${(100 * num) / neighbors[neighbors.length - 1].num}%`}
-          style:max-width={`${num}px`}
-        ></div>
-      </div>
-
       <div
-        class="relative flex items-end flex-col"
+        class="inset-y-0 absolute"
+        style:background-color={`oklch(${0.9375 - 0.375 * percentage} 0.134 211.5)`}
+        style:width={`${(100 * num) / neighbors[neighbors.length - 1].num}%`}
+        style:max-width={`${num}px`}
+      ></div>
+      <div
+        class="relative flex items-end flex-col px-12"
         style:left={`${100 * percentage}%`}
         style:transform={`translateX(${-100 * percentage}%)`}
       >
-        <div class="h-6 flex items-end pb-0.5">
+        <div class="h-6 flex items-end .pb-0.5">
           <math class="color-neutral-600 text-sm font-sans">
             <mn>{formatNumber(coef)}px</mn>
             <mo>&times;</mo>
@@ -168,9 +180,9 @@
             primary ? "color-neutral-900" : "color-neutral-600",
           ]}
         >
-          {formatNumber(num / 4)} ·
-          {formatNumber(num / 16)}rem ·
-          {formatNumber(num)}px
+          {num / 4} ·
+          {num / 16}rem ·
+          {num}px
         </div>
         <div class="text-sm color-neutral-600 h-6 leading-tight">
           {#if delta === 0}
