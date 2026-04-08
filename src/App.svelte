@@ -8,17 +8,26 @@
   import boston from "./assets/boston.svg";
   import Exposition from "./Exposition.svelte";
 
+  const scales = [
+    { label: "0.25rem", scale: 4 },
+    { label: "rem", scale: 16 },
+    { label: "px", scale: 1 },
+  ] as const;
+  let scaleInput = $state<"0.25rem" | "rem" | "px">("px");
+  let scale = $derived(scales.find((item) => item.label === scaleInput)?.scale);
   let targetInput = $state<number | null>(null);
   let target = $derived<number>(targetInput ?? 1337);
   let baseInput = $state<number | null>(2);
   let base = $derived<number>(
     targetInput === null || (baseInput ?? 0) < 2 ? 2 : (baseInput ?? 2),
   );
-  let showBase = $state(false);
+  // let showBase = $state(false);
   let inputRef = $state<HTMLInputElement | null>(null);
   let showLimit = $state(false);
   const neighbors = $derived(
-    target > 0 && base >= 2 ? round(target, base) : round(1337, 2),
+    targetInput && target > 0 && base >= 2
+      ? round((scale ?? 1) * target, base)
+      : round(1337, 2),
   );
   onMount(() => inputRef?.focus());
   // $inspect(neighbors).with((_, item) =>
@@ -31,10 +40,11 @@
 <svelte:window
   onkeydown={({ key }) => {
     const active = document.activeElement;
-    if (key === "b") {
-      baseInput = 2;
-      showBase = !showBase;
-    } else if (
+    // if (key === "b") {
+    //   baseInput = 2;
+    //   showBase = !showBase;
+    // } else
+    if (
       targetInput === null &&
       key.match(/[\d]/) &&
       !(active?.localName === "input" && active !== inputRef)
@@ -60,8 +70,8 @@
     </math>
   </div>
   <div class="flex justify-between w-full">
-    <div class={["flex-1", showBase || "invisible"]}>
-      <!-- <Input
+    <!-- <div class={["flex-1", showBase || "invisible"]}> -->
+    <!-- <Input
         onblur={() => (baseInput = (baseInput ?? 0) < 2 ? 2 : baseInput)}
         autocomplete="off"
         inputmode="numeric"
@@ -87,7 +97,7 @@
           }
         }
       /> -->
-    </div>
+    <!-- </div> -->
     <div class="flex gap-4">
       <Input
         onblur={() => (targetInput = target < 1 ? null : targetInput)}
@@ -109,15 +119,15 @@
           }
         }
       />
-      <Tabs value="rem">
+      <Tabs bind:value={scaleInput}>
         <TabsList>
-          <TabsTrigger value="scale">0.25rem</TabsTrigger>
-          <TabsTrigger value="rem">rem</TabsTrigger>
-          <TabsTrigger value="px">px</TabsTrigger>
+          {#each scales as { label }}
+            <TabsTrigger value={label}>{label}</TabsTrigger>
+          {/each}
         </TabsList>
       </Tabs>
     </div>
-    <div class="flex-1 flex justify-end">
+    <div class=".flex-1 flex justify-end">
       <Button
         aria-label="github repository"
         variant="ghost"
@@ -138,7 +148,8 @@
 </header>
 <main class="flex-1">
   {#if !targetInput}
-    <Exposition bind:showBase />
+    <!-- <Exposition bind:showBase /> -->
+    <Exposition />
     <div class="flex justify-center py-6 font-medium">Target = 1337px</div>
   {/if}
 
