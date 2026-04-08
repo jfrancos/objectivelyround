@@ -22,8 +22,8 @@
   // $inspect(neighbors).with((_, item) =>
   //   console.log(JSON.stringify(item, undefined, 2)),
   // );
-  const formatNumber = (number: number) =>
-    number.toLocaleString(undefined, { useGrouping: "min2" });
+  const formatNumber = (number: number) => number;
+  // number.toLocaleString(undefined, { useGrouping: "min2" });
 </script>
 
 <svelte:window
@@ -128,7 +128,7 @@
 <main class="flex-1">
   {#if !targetInput}
     <Exposition bind:showBase />
-    <div class="flex justify-center py-4 font-medium">Target = 1337px</div>
+    <div class="flex justify-center py-6 font-medium">Target = 1337px</div>
   {/if}
 
   {#each neighbors as { num, exp, delta, coef, rank, primary }}
@@ -151,7 +151,7 @@
         style:left={`${100 * percentage}%`}
         style:transform={`translateX(${-100 * percentage}%)`}
       >
-        <div class="h-6 flex items-end">
+        <div class="h-6 flex items-end pb-0.5">
           <math class="color-neutral-600 text-sm font-sans">
             <mn>{formatNumber(coef)}px</mn>
             <mo>&times;</mo>
@@ -172,7 +172,7 @@
           {formatNumber(num / 16)}rem ·
           {formatNumber(num)}px
         </div>
-        <div class="text-sm color-neutral-600 h-6 leading-none">
+        <div class="text-sm color-neutral-600 h-6 leading-tight">
           {#if delta === 0}
             <div class="color-neutral-800">Target</div>
           {:else}
