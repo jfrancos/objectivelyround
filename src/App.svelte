@@ -157,14 +157,15 @@
             <mo>&times;</mo>
             <msup>
               <mn>{!targetInput ? 2 : base}</mn>
-              <mn class="font-black color-black .text-0.6875rem">{exp}</mn>
+              <mn class="font-black color-neutral-950 .text-0.6875rem">{exp}</mn
+              >
             </msup>
           </math>
         </div>
         <div
           class={[
             "text-lg font-mono",
-            primary ? "color-black" : "color-neutral-600",
+            primary ? "color-neutral-900" : "color-neutral-600",
           ]}
         >
           {formatNumber(num / 4)} ·
@@ -180,7 +181,7 @@
               <mo>
                 {delta > 0 ? "+" : delta < 0 ? "−" : ""}
               </mo>
-              <mn class="color-neutral-800 font-semibold">
+              <mn class="color-neutral-950 font-semibold">
                 {formatNumber(Math.abs(delta))}px
               </mn>
             </math>
