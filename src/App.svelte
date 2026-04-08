@@ -1,12 +1,12 @@
 <script lang="ts">
+  // import { tabs } from "slidytabs";
   import { onMount } from "svelte";
   import { Button } from "$lib/components/ui/button";
   import { Input } from "$lib/components/ui/input";
   import { Tabs, TabsList, TabsTrigger } from "$lib/components/ui/tabs";
+  import { round } from "$lib/roundings";
   import boston from "./assets/boston.svg";
   import Exposition from "./Exposition.svelte";
-  import { round } from "./lib/utils";
-  import TabsContent from "$lib/components/ui/tabs/tabs-content.svelte";
 
   let targetInput = $state<number | null>(null);
   let target = $derived<number>(targetInput ?? 1337);
@@ -47,8 +47,8 @@
 <header
   class="sticky top-0 shadow-lg py-2 bg-white flex z-10 text-xs font-medium text-nowrap items-center px-4 md:px-8 flex-col gap-2"
 >
-  <div class={[showLimit || "invisible", "color-neutral-600"]}>
-    Input is capped at <math class="font-sans font-semibold color-neutral-800">
+  <div class={[showLimit || "invisible", "text-neutral-600"]}>
+    Input is capped at <math class="font-sans font-semibold text-neutral-800">
       <mi>target</mi>
       <mo>×</mo>
       <mi>base</mi>
@@ -109,16 +109,13 @@
           }
         }
       />
-      <!-- <Tabs value="rem">
+      <Tabs value="rem">
         <TabsList>
-          <TabsTrigger value="scale">scale</TabsTrigger>
+          <TabsTrigger value="scale">0.25rem</TabsTrigger>
           <TabsTrigger value="rem">rem</TabsTrigger>
           <TabsTrigger value="px">px</TabsTrigger>
         </TabsList>
-        <TabsContent value="scale" />
-        <TabsContent value="rem" />
-        <TabsContent value="px" />
-      </Tabs> -->
+      </Tabs>
     </div>
     <div class="flex-1 flex justify-end">
       <Button
@@ -133,7 +130,7 @@
     </div>
   </div>
   <a
-    class={["underline color-purple-700", showLimit || "invisible"]}
+    class={["underline text-purple-700", showLimit || "invisible"]}
     target="_blank"
     href="https://github.com/jfrancos/objectivelyround/issues"
     >Tell me about your BigInt use case</a
@@ -164,36 +161,35 @@
         style:transform={`translateX(${-100 * percentage}%)`}
       >
         <div class="h-6 flex items-end .pb-0.5">
-          <math class="color-neutral-600 text-sm font-sans">
+          <math class="text-neutral-600 text-sm font-sans">
             <mn>{formatNumber(coef)}px</mn>
             <mo>&times;</mo>
             <msup>
               <mn>{!targetInput ? 2 : base}</mn>
-              <mn class="font-black color-neutral-950 .text-0.6875rem">{exp}</mn
-              >
+              <mn class="font-black text-neutral-950 .text-0.6875rem">{exp}</mn>
             </msup>
           </math>
         </div>
         <div
           class={[
             "text-lg font-mono",
-            primary ? "color-neutral-900" : "color-neutral-600",
+            primary ? "text-neutral-900" : "text-neutral-600",
           ]}
         >
           {num / 4} ·
           {num / 16}rem ·
           {num}px
         </div>
-        <div class="text-sm color-neutral-600 h-6 leading-tight">
+        <div class="text-sm text-neutral-600 h-6 leading-tight">
           {#if delta === 0}
-            <div class="color-neutral-800">Target</div>
+            <div class="text-neutral-800">Target</div>
           {:else}
             <math class="font-sans">
               <mn>{formatNumber(num - delta)}px</mn>
               <mo>
                 {delta > 0 ? "+" : delta < 0 ? "−" : ""}
               </mo>
-              <mn class="color-neutral-950 font-semibold">
+              <mn class="text-neutral-950 font-semibold">
                 {formatNumber(Math.abs(delta))}px
               </mn>
             </math>
@@ -223,7 +219,7 @@
   </div>
   <div class="flex gap-2 flex-1 justify-end">
     <Button
-      class="hover:color-[oklch(.797_0.134_211.5)]"
+      class="hover:text-[oklch(.797_0.134_211.5)]"
       variant="ghost"
       href="https://github.com/jfrancos"
       target="_blank"
@@ -233,7 +229,7 @@
       <div class="size-6 i-mdi:github"></div>
     </Button>
     <Button
-      class="hover:color-[oklch(.797_0.134_211.5)]"
+      class="hover:text-[oklch(.797_0.134_211.5)]"
       variant="ghost"
       href="https://jfrancos.github.io/music.html"
       target="_blank"
@@ -243,7 +239,7 @@
       <div class="size-6 i-mdi:music"></div>
     </Button>
     <Button
-      class="hover:color-[oklch(.797_0.134_211.5)]"
+      class="hover:text-[oklch(.797_0.134_211.5)]"
       variant="ghost"
       href="mailto:justinfrancos@gmail.com"
       aria-label="Email"
