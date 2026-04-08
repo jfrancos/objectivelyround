@@ -1,5 +1,5 @@
 <script lang="ts">
-    import Button from "$lib/components/ui/button/button.svelte";
+    // import Button from "$lib/components/ui/button/button.svelte";
     import {
         Popover,
         PopoverContent,
@@ -150,14 +150,15 @@
             This site takes a target value and shows you its successive base-2
             roundings. If a number is dimmed, it means there’s an equally round
             or rounder number that’s closer to the target. Below is what that
-            looks like for 1337. For fun, you can also explore rounding in
+            looks like for 1337.
+            <!-- For fun, you can also explore rounding in
             arbitrary bases;
             <Button
                 variant="secondary"
                 size="xs"
                 class="text-sm"
                 onclick={() => (showBase = !showBase)}>click here</Button
-            > or press “b” to toggle that interface.
+            > or press “b” to toggle that interface. -->
         </p>
 
         <p>

@@ -1,6 +1,6 @@
 <script lang="ts">
   import { onMount } from "svelte";
-  import Button from "$lib/components/ui/button/button.svelte";
+  import { Button } from "$lib/components/ui/button";
   import { Input } from "$lib/components/ui/input";
   import boston from "./assets/boston.svg";
   import Exposition from "./Exposition.svelte";
@@ -128,51 +128,64 @@
 <main class="flex-1">
   {#if !targetInput}
     <Exposition bind:showBase />
-    <div class="flex justify-center py-4 font-medium">Target = 1337</div>
+    <div class="flex justify-center py-4 font-medium">Target = 1337px</div>
   {/if}
 
   {#each neighbors as { num, exp, delta, coef, rank, primary }}
     {@const max = Math.max(...neighbors.map((item) => item.rank))}
     {@const percentage = max === 0 ? 0.5 : rank / max}
     <div
-      class="px-6 h-20 flex items-center"
-      style:background-color={`oklch(${1 - 0.375 * percentage} 0.125 301.5)`}
+      class="px-6 flex items-center"
+      style:background-color={`oklch(${1 - 0.375 * percentage} 0.134 301.5)`}
     >
+      <div class="inset-x-4 absolute">
+        <div
+          class="h-6.5 bg-[oklch(.797_0.134_211.5)] rounded-xs"
+          style:width={`${(100 * num) / neighbors[neighbors.length - 1].num}%`}
+          style:max-width={`${num}px`}
+        ></div>
+      </div>
+
       <div
         class="relative flex items-end flex-col"
         style:left={`${100 * percentage}%`}
         style:transform={`translateX(${-100 * percentage}%)`}
       >
-        <math class="color-neutral-600 text-sm font-sans">
-          <mn>{formatNumber(coef)}</mn>
-          <mo>&times;</mo>
-          <msup>
-            <mn>{!targetInput ? 2 : base}</mn>
-            <mn class="font-black color-black text-0.6875rem">{exp}</mn>
-          </msup>
-        </math>
+        <div class="h-6.5 flex items-end">
+          <math class="color-neutral-600 text-sm font-sans">
+            <mn>{formatNumber(coef)}px</mn>
+            <mo>&times;</mo>
+            <msup>
+              <mn>{!targetInput ? 2 : base}</mn>
+              <mn class="font-black color-black .text-0.6875rem">{exp}</mn>
+            </msup>
+          </math>
+        </div>
         <div
           class={[
             "text-lg font-mono",
             primary ? "color-black" : "color-neutral-600",
           ]}
         >
-          {formatNumber(num)}
+          {formatNumber(num / 4)} ·
+          {formatNumber(num / 16)}rem ·
+          {formatNumber(num)}px
         </div>
-        <math
-          class={[
-            "font-sans text-0.6875rem color-neutral-600",
-            delta === 0 && "hidden",
-          ]}
-        >
-          <mn>{formatNumber(num - delta)}</mn>
-          <mo>
-            {delta > 0 ? "+" : delta < 0 ? "−" : ""}
-          </mo>
-          <mn class="color-neutral-800 font-semibold">
-            {formatNumber(Math.abs(delta))}
-          </mn>
-        </math>
+        <div class="text-sm color-neutral-600 h-6.5 leading-tight">
+          {#if delta === 0}
+            <div class="color-neutral-800">Target</div>
+          {:else}
+            <math class="font-sans">
+              <mn>{formatNumber(num - delta)}px</mn>
+              <mo>
+                {delta > 0 ? "+" : delta < 0 ? "−" : ""}
+              </mo>
+              <mn class="color-neutral-800 font-semibold">
+                {formatNumber(Math.abs(delta))}px
+              </mn>
+            </math>
+          {/if}
+        </div>
       </div>
     </div>
   {/each}
@@ -197,7 +210,7 @@
   </div>
   <div class="flex gap-2 flex-1 justify-end">
     <Button
-      class="hover:text-#529BBA"
+      class="hover:color-[oklch(.797_0.134_211.5)]"
       variant="ghost"
       href="https://github.com/jfrancos"
       target="_blank"
@@ -207,7 +220,7 @@
       <div class="size-6 i-mdi:github"></div>
     </Button>
     <Button
-      class="hover:text-#529BBA"
+      class="hover:color-[oklch(.797_0.134_211.5)]"
       variant="ghost"
       href="https://jfrancos.github.io/music.html"
       target="_blank"
@@ -217,7 +230,7 @@
       <div class="size-6 i-mdi:music"></div>
     </Button>
     <Button
-      class="hover:text-#529BBA"
+      class="hover:color-[oklch(.797_0.134_211.5)]"
       variant="ghost"
       href="mailto:justinfrancos@gmail.com"
       aria-label="Email"
