@@ -237,7 +237,7 @@
       rel="noreferrer"
       aria-label="Github"
     >
-      <div class="size-6 i-mdi:github"></div>
+      <div class="size-6! i-mdi:github"></div>
     </Button>
     <Button
       class="hover:text-[oklch(.797_0.134_211.5)]"
@@ -247,7 +247,7 @@
       rel="noreferrer"
       aria-label="Music"
     >
-      <div class="size-6 i-mdi:music"></div>
+      <div class="size-6! i-mdi:music"></div>
     </Button>
     <Button
       class="hover:text-[oklch(.797_0.134_211.5)]"
@@ -255,7 +255,7 @@
       href="mailto:justinfrancos@gmail.com"
       aria-label="Email"
     >
-      <div class="size-6 i-mdi:email-outline"></div>
+      <div class="size-6! i-mdi:email-outline"></div>
     </Button>
   </div>
 </footer>
