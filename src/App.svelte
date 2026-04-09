@@ -9,7 +9,7 @@
   import Exposition from "./Exposition.svelte";
 
   const scales = [
-    { label: "0.25rem", scale: 4 },
+    { label: "¼ rem", scale: 4 },
     { label: "rem", scale: 16 },
     { label: "px", scale: 1 },
   ] as const;
@@ -70,6 +70,7 @@
     </math>
   </div>
   <div class="flex justify-between w-full">
+    <div class="flex-1"></div>
     <!-- <div class={["flex-1", showBase || "invisible"]}> -->
     <!-- <Input
         onblur={() => (baseInput = (baseInput ?? 0) < 2 ? 2 : baseInput)}
@@ -105,7 +106,7 @@
         inputmode="numeric"
         class="w-40 md:w-48"
         type="number"
-        placeholder="Target"
+        placeholder="Target [px | rem]"
         bind:ref={inputRef}
         bind:value={
           () => targetInput,
@@ -119,15 +120,15 @@
           }
         }
       />
-      <Tabs bind:value={scaleInput}>
+      <!-- <Tabs bind:value={scaleInput}>
         <TabsList>
           {#each scales as { label }}
             <TabsTrigger value={label}>{label}</TabsTrigger>
           {/each}
         </TabsList>
-      </Tabs>
+      </Tabs> -->
     </div>
-    <div class=".flex-1 flex justify-end">
+    <div class="flex-1 flex justify-end">
       <Button
         aria-label="github repository"
         variant="ghost"
@@ -156,13 +157,14 @@
   {#each neighbors as { num, exp, delta, coef, rank, primary }}
     {@const max = Math.max(...neighbors.map((item) => item.rank))}
     {@const percentage = max === 0 ? 0.5 : rank / max}
+    <!-- {console.log(percentage)} -->
     <div
       class="flex relative"
-      style:background-color={`oklch(${0.9375 - 0.375 * percentage} 0.134 301.5)`}
+      style:background-color={`oklch(${0.95 - 0.3 * percentage} ${0.04 + 0.02685 * percentage} 331.53)`}
     >
       <div
         class="inset-y-0 absolute"
-        style:background-color={`oklch(${0.9375 - 0.375 * percentage} 0.134 211.5)`}
+        style:background-color={`oklch(${0.95 - 0.3 * percentage} ${0.04 + 0.0937 * percentage} 211.53)`}
         style:width={`${(100 * num) / neighbors[neighbors.length - 1].num}%`}
         style:max-width={`${num}px`}
       ></div>
@@ -187,9 +189,22 @@
             primary ? "text-neutral-900" : "text-neutral-600",
           ]}
         >
-          {num / 4} ·
-          {num / 16}rem ·
-          {num}px
+          {#if delta === 0}
+            <math>
+              <mrow class="flex items-center font-mono">
+                <mn>{num / 4}</mn>
+                <mfrac><mi>rem</mi><mn>4</mn></mfrac>
+              </mrow>
+            </math>
+            ·
+            {num / 16}rem · {num}px
+          {:else if scaleInput === "px"}
+            {num}px
+          {:else if scaleInput === "rem"}
+            {num / 16}rem
+          {:else if scaleInput === "0.25rem"}
+            ¼ rem
+          {/if}
         </div>
         <div class="text-sm text-neutral-600 h-6 leading-tight">
           {#if delta === 0}

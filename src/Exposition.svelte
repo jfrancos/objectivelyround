@@ -145,12 +145,23 @@
             encounter <code>1337px</code>, I’ll probably nudge that to
             <code>1344px</code>.
         </p>
-
+        <h2 class="text-xl text-neutral-900 text-center font-semibold">
+            Usage
+        </h2>
+        This site takes a target value and shows you that number’s successive base-2
+        roundings.
+        <h3 class=" text-neutral-900 font-semibold">Input</h3>
         <p>
-            This site takes a target value and shows you its successive base-2
-            roundings. If a number is dimmed, it means there’s an equally round
-            or rounder number that’s closer to the target. Below is what that
-            looks like for 1337.
+            <math class="font-mono">
+                <mfrac><mi>rem</mi><mn>4</mn></mfrac>
+            </math>
+            values are assumed unless there’s a [px | rem] suffix.
+        </p>
+        <h3 class=" text-neutral-900 font-semibold">Output</h3>
+        <p>
+            If a number is dimmed, it means there’s an equally round or rounder
+            number that’s closer to the target. Below is what that looks like
+            for 1337.
             <!-- For fun, you can also explore rounding in
             arbitrary bases;
             <Button
