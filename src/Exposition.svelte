@@ -120,8 +120,8 @@
         <p>
             When designing, this means feeling out a size by moving among nearby
             base-2-round values: I might try <code>16rem</code>, then
-            <code>8rem</code>, then <code>12rem</code>, and so on until it looks
-            right.
+            <code>8rem</code>, then <code>12rem</code>, and so on until a thing
+            looks right.
         </p>
 
         <p>
