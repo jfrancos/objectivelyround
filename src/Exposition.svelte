@@ -60,7 +60,7 @@
         <p>
             Using <RemPx px={16} /> as an anchor, Tailwind’s curated values included
             powers of two, with selected intermediate values. As the numbers got
-            larger, spacing between them also increased:
+            larger, spacing between them increased:
         </p>
 
         <div class="flex justify-evenly flex-wrap gap-6 p-1">
@@ -98,13 +98,13 @@
         </div>
 
         <p>
-            These curated values preferred rounder numbers, with “round”
+            This curated system preferred rounder numbers, with “round”
             <a href="#note-base-2-round" id="ref-base-2-round">
                 <span class="underline decoration-dotted">defined</span><sup
                     >*</sup
                 >
             </a>
-            as how many times a number can be divided by 2 (shown above as the exponent
+            by how many times a number can be divided by 2 (shown above as the exponent
             on 2). With Tailwind
             <a
                 rel="noreferrer"
@@ -145,23 +145,28 @@
             encounter <code>1337px</code>, I’ll probably nudge that to
             <code>1344px</code>.
         </p>
-        <h2 class="text-xl text-neutral-900 text-center font-semibold">
+        <h2 class="text-2xl text-neutral-900 text-center font-semibold">
             Usage
         </h2>
         This site takes a target value and shows you that number’s successive base-2
-        roundings.
+        roundings. Use the roundest one that still looks good.
         <h3 class=" text-neutral-900 font-semibold">Input</h3>
-        <p>
+        You can enter rem, px, or Tailwind spacing units (quarter-rem).
+        <!-- <p>
             <math class="font-mono">
                 <mfrac><mi>rem</mi><mn>4</mn></mfrac>
             </math>
             values are assumed unless there’s a [px | rem] suffix.
-        </p>
+        </p> -->
         <h3 class=" text-neutral-900 font-semibold">Output</h3>
         <p>
-            If a number is dimmed, it means there’s an equally round or rounder
-            number that’s closer to the target. Below is what that looks like
-            for 1337.
+            Rounder values appear farther to the left, have lighter backgrounds,
+            and have higher exponents. The blue sections let you visually
+            compare sizes for each row. If your browser window is wide enough,
+            they’ll display actual widths; otherwise, they’ll scale
+            proportionally. If a number is dimmed, it means there’s an equally
+            round or rounder number that’s closer to the target.
+            <!-- Below is what that looks like for 1337. -->
             <!-- For fun, you can also explore rounding in
             arbitrary bases;
             <Button
@@ -172,7 +177,7 @@
             > or press “b” to toggle that interface. -->
         </p>
 
-        <p>
+        <!-- <p>
             If you find this useful,
             <a
                 rel="noreferrer"
@@ -181,7 +186,7 @@
                 href="https://github.com/jfrancos/objectivelyround"
                 >please star the repo</a
             >.
-        </p>
+        </p> -->
 
         <p class="text-xs" id="note-base-2-round">
             * Roundness is always relative to a base. In base 10, successive
@@ -192,5 +197,6 @@
             base 10.
             <a href="#ref-base-2-round" aria-label="Back to reference">↩</a>
         </p>
+        <h3 class=" text-neutral-900 font-semibold pt-4">Demonstration</h3>
     </section>
 </div>

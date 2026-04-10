@@ -12,7 +12,7 @@
     }>();
 </script>
 
-<math class={["font-sans text-neutral-600", className]}>
+<math class={["font-sans font-light text-neutral-700", className]}>
     {#if parens}
         <mo>(</mo>
     {/if}
@@ -20,7 +20,7 @@
     <mo>×</mo>
     <msup>
         <mn>2</mn>
-        <mn class="font-black text-black">{exp}</mn>
+        <mn class="font-bold text-black">{exp}</mn>
     </msup>
     {#if parens}
         <mo class="relative right-0.375">)</mo>

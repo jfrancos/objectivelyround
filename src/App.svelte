@@ -9,11 +9,11 @@
   import Exposition from "./Exposition.svelte";
 
   const scales = [
-    { label: "¼ rem", scale: 4 },
+    { label: "quarter-rem", scale: 4 },
     { label: "rem", scale: 16 },
     { label: "px", scale: 1 },
   ] as const;
-  let scaleInput = $state<"0.25rem" | "rem" | "px">("px");
+  let scaleInput = $state<"quarter-rem" | "rem" | "px">("px");
   let scale = $derived(scales.find((item) => item.label === scaleInput)?.scale);
   let targetInput = $state<number | null>(null);
   let target = $derived<number>(targetInput ?? 1337);
@@ -99,14 +99,14 @@
         }
       /> -->
     <!-- </div> -->
-    <div class="flex gap-4">
+    <div class="flex flex-col sm:flex-row gap-4 sm:gap-8 items-center">
       <Input
         onblur={() => (targetInput = target < 1 ? null : targetInput)}
         autocomplete="off"
         inputmode="numeric"
         class="w-40 md:w-48"
         type="number"
-        placeholder="Target [px | rem]"
+        placeholder="Target"
         bind:ref={inputRef}
         bind:value={
           () => targetInput,
@@ -120,13 +120,23 @@
           }
         }
       />
-      <!-- <Tabs bind:value={scaleInput}>
-        <TabsList>
-          {#each scales as { label }}
-            <TabsTrigger value={label}>{label}</TabsTrigger>
-          {/each}
+      <Tabs bind:value={scaleInput}>
+        <TabsList class="*:min-w-0 *:px-4">
+          <!-- {#each scales as { label }} -->
+          <TabsTrigger value="quarter-rem" aria-label="quarter-rem"
+            ><math class="font-sans text-[17px] font-medium relative top-px">
+              <mfrac><mi>rem</mi><mn>4</mn></mfrac>
+            </math></TabsTrigger
+          >
+          <TabsTrigger value="rem" class="leading-none"
+            ><div class="relative bottom-px">rem</div></TabsTrigger
+          >
+          <TabsTrigger value="px"
+            ><div class="relative bottom-px">px</div></TabsTrigger
+          >
+          <!-- {/each} -->
         </TabsList>
-      </Tabs> -->
+      </Tabs>
     </div>
     <div class="flex-1 flex justify-end">
       <Button
@@ -151,12 +161,14 @@
   {#if !targetInput}
     <!-- <Exposition bind:showBase /> -->
     <Exposition />
-    <div class="flex justify-center py-6 font-medium">Target = 1337px</div>
+    <div class="flex justify-center pb-4 text-lg font-medium">1337px</div>
   {/if}
 
   {#each neighbors as { num, exp, delta, coef, rank, primary }}
     {@const max = Math.max(...neighbors.map((item) => item.rank))}
     {@const percentage = max === 0 ? 0.5 : rank / max}
+    {@const deemphisized = `oklch(${0.5 - 0.2375 * percentage} 0 0)`}
+    {@const dimmed = `oklch(${0.6 - 0.15 * percentage} 0 0)`}
     <!-- {console.log(percentage)} -->
     <div
       class="flex relative"
@@ -174,20 +186,21 @@
         style:transform={`translateX(${-100 * percentage}%)`}
       >
         <div class="h-6 flex items-end .pb-0.5">
-          <math class="text-neutral-600 text-sm font-sans">
+          <math class="text-sm font-sans font-light" style:color={deemphisized}>
             <mn>{formatNumber(coef)}px</mn>
             <mo>&times;</mo>
             <msup>
               <mn>{!targetInput ? 2 : base}</mn>
-              <mn class="font-black text-neutral-950 .text-0.6875rem">{exp}</mn>
+              <mn class="font-bold text-black">{exp}</mn>
             </msup>
           </math>
         </div>
         <div
           class={[
-            "text-lg font-mono",
-            primary ? "text-neutral-900" : "text-neutral-600",
+            "text-lg font-mono flex gap-2 items-center",
+            primary && "text-black",
           ]}
+          style:color={primary ? undefined : dimmed}
         >
           {#if delta === 0}
             <math>
@@ -195,27 +208,30 @@
                 <mn>{num / 4}</mn>
                 <mfrac><mi>rem</mi><mn>4</mn></mfrac>
               </mrow>
-            </math>
-            ·
-            {num / 16}rem · {num}px
+            </math>·<span>{num / 16}rem</span>·<span>{num}px</span>
           {:else if scaleInput === "px"}
             {num}px
           {:else if scaleInput === "rem"}
             {num / 16}rem
-          {:else if scaleInput === "0.25rem"}
-            ¼ rem
+          {:else if scaleInput === "quarter-rem"}
+            <span class="relative left-1.5">{num / 4}</span>
+            <math>
+              <mrow class="flex items-center font-mono">
+                <mfrac><mi>rem</mi><mn>4</mn></mfrac>
+              </mrow>
+            </math>
           {/if}
         </div>
-        <div class="text-sm text-neutral-600 h-6 leading-tight">
+        <div class="text-sm h-6 leading-tight" style:color={deemphisized}>
           {#if delta === 0}
-            <div class="text-neutral-800">Target</div>
+            <div class="text-neutral-900">Target</div>
           {:else}
-            <math class="font-sans">
+            <math class="font-sans font-light">
               <mn>{formatNumber(num - delta)}px</mn>
               <mo>
                 {delta > 0 ? "+" : delta < 0 ? "−" : ""}
               </mo>
-              <mn class="text-neutral-950 font-semibold">
+              <mn class="text-black font-medium">
                 {formatNumber(Math.abs(delta))}px
               </mn>
             </math>
@@ -241,7 +257,19 @@
   </div>
   <div class="flex flex-col">
     <img alt="Boston skyline" class="opacity-50 h-32 -mt-8" src={boston} />
-    Made with love in Camberville, MA
+    <div class="flex flex-col gap-1 items-center">
+      <p>Made with love in Camberville, MA</p>
+      <p>
+        If you find this project helpful,
+        <a
+          rel="noreferrer"
+          class="underline"
+          target="_blank"
+          href="https://github.com/jfrancos/objectivelyround"
+          >please consider giving it a ⭐!</a
+        >
+      </p>
+    </div>
   </div>
   <div class="flex gap-2 flex-1 justify-end">
     <Button
