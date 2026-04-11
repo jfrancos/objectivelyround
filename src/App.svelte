@@ -142,7 +142,7 @@
       <Button
         aria-label="github repository"
         variant="ghost"
-        class="relative -right-2.5"
+        class="relative -right-2.5 hover:text-cyan-600"
         href="https://github.com/jfrancos/objectivelyround"
         target="_blank"
       >
@@ -247,11 +247,17 @@
   <div class="flex-1">
     <div class="flex flex-col items-center gap-2 whitespace-nowrap w-fit">
       Other projects:
-      <a href="https://oklch.beauty" target="_blank" rel="noreferrer"
-        >oklch.beauty</a
+      <a
+        href="https://oklch.beauty"
+        target="_blank"
+        rel="noreferrer"
+        class="hover:text-cyan-600">oklch.beauty</a
       >
-      <a href="https://slidytabs.dev" target="_blank" rel="noreferrer"
-        >slidytabs.dev</a
+      <a
+        href="https://slidytabs.dev"
+        target="_blank"
+        rel="noreferrer"
+        class="hover:text-cyan-600">slidytabs.dev</a
       >
     </div>
   </div>
@@ -263,7 +269,7 @@
         If you find this project helpful,
         <a
           rel="noreferrer"
-          class="underline"
+          class="underline hover:text-cyan-600"
           target="_blank"
           href="https://github.com/jfrancos/objectivelyround"
           >please consider giving it a ⭐!</a
@@ -273,7 +279,7 @@
   </div>
   <div class="flex gap-2 flex-1 justify-end">
     <Button
-      class="hover:text-[oklch(.797_0.134_211.5)]"
+      class="hover:text-cyan-600"
       variant="ghost"
       href="https://github.com/jfrancos"
       target="_blank"
@@ -283,7 +289,7 @@
       <div class="size-6! i-mdi:github"></div>
     </Button>
     <Button
-      class="hover:text-[oklch(.797_0.134_211.5)]"
+      class="hover:text-cyan-600"
       variant="ghost"
       href="https://jfrancos.github.io/music.html"
       target="_blank"
@@ -293,7 +299,7 @@
       <div class="size-6! i-mdi:music"></div>
     </Button>
     <Button
-      class="hover:text-[oklch(.797_0.134_211.5)]"
+      class="hover:text-cyan-600"
       variant="ghost"
       href="mailto:justinfrancos@gmail.com"
       aria-label="Email"

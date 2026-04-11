@@ -25,7 +25,7 @@
         </p>
         <p class="text-center text-sm text-neutral-900">
             <Popover
-                ><PopoverTrigger class="underline decoration-dotted">
+                ><PopoverTrigger class="underline decoration-dotted hover:text-fuchsia-700">
                     In the new world of bracketless arbitrary Tailwind values</PopoverTrigger
                 ><PopoverContent
                     class="bg-foreground text-background text-xs text-balance rounded-md px-3 py-2 w-fit max-w-64"
@@ -40,7 +40,7 @@
             Early versions of Tailwind CSS encouraged use of a
             <a
                 rel="noreferrer"
-                class="underline"
+                class="underline hover:text-cyan-600"
                 target="_blank"
                 href="https://v3.tailwindcss.com/docs/customizing-spacing#default-spacing-scale"
                 >curated, constrained system of widths</a
@@ -99,7 +99,11 @@
 
         <p>
             This curated system preferred rounder numbers, with “round”
-            <a href="#note-base-2-round" id="ref-base-2-round">
+            <a
+                href="#note-base-2-round"
+                id="ref-base-2-round"
+                class="hover:text-fuchsia-700"
+            >
                 <span class="underline decoration-dotted">defined</span><sup
                     >*</sup
                 >
@@ -108,7 +112,7 @@
             on 2). With Tailwind
             <a
                 rel="noreferrer"
-                class="underline"
+                class="underline hover:text-cyan-600"
                 target="_blank"
                 href="https://x.com/adamwathan/status/1847360035548012856"
                 >no longer requiring brackets for arbitrary values</a
@@ -195,7 +199,11 @@
             many times a number can be divided by 2 just means we’re rounding in
             base 2 (the smallest base for which rounding has meaning) instead of
             base 10.
-            <a href="#ref-base-2-round" aria-label="Back to reference">↩</a>
+            <a
+                href="#ref-base-2-round"
+                aria-label="Back to reference"
+                class="hover:text-fuchsia-700">↩</a
+            >
         </p>
         <h3 class=" text-neutral-900 font-semibold pt-4">Demonstration</h3>
     </section>
