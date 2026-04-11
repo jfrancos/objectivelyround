@@ -1,8 +1,8 @@
 # ObjectivelyRound
 
-ObjectivelyRound is a tool for finding “rounder” spacing and sizing values.
+ObjectivelyRound is a spacing and sizing value picker in the spirit of [Tailwind’s historically curated scale](https://v3.tailwindcss.com/docs/customizing-spacing#default-spacing-scale).
 
-Instead of treating roundness in the usual base-10 sense, it looks at roundness in terms of divisibility by 2: values that can be halved more times while staying whole are treated as rounder. This makes it useful for spacing and sizing systems inspired by historically curated scales like Tailwind’s.
+It takes a target value and shows progressively base-2-rounder alternatives.
 
 Live site: [objectivelyround.dev](https://objectivelyround.dev)
 
