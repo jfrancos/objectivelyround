@@ -61,7 +61,8 @@
     Input is capped at <math class="font-sans font-semibold text-neutral-800">
       <mi>target</mi>
       <mo>×</mo>
-      <mi>base</mi>
+      <mi>2</mi>
+      <!-- <mi>base</mi> -->
       <mo>≤</mo>
       <msup>
         <mn>2</mn>
@@ -71,34 +72,6 @@
   </div>
   <div class="flex justify-between w-full">
     <div class="flex-1"></div>
-    <!-- <div class={["flex-1", showBase || "invisible"]}> -->
-    <!-- <Input
-        onblur={() => (baseInput = (baseInput ?? 0) < 2 ? 2 : baseInput)}
-        autocomplete="off"
-        inputmode="numeric"
-        min={2}
-        class={[
-          "md:w-24 w-20",
-          targetInput === null &&
-            baseInput !== null &&
-            baseInput !== 2 &&
-            "line-through opacity-50",
-        ]}
-        placeholder="Base"
-        type="number"
-        bind:value={
-          () => baseInput,
-          (next) => {
-            if (target * (next ?? 0) <= 2 ** 50) {
-              baseInput = next === null ? next : Math.abs(Math.trunc(next));
-              showLimit = false;
-            } else {
-              showLimit = true;
-            }
-          }
-        }
-      /> -->
-    <!-- </div> -->
     <div class="flex flex-col sm:flex-row gap-4 sm:gap-8 items-center">
       <Input
         onblur={() => (targetInput = target < 1 ? null : targetInput)}
@@ -159,8 +132,7 @@
 </header>
 <main class="flex-1">
   {#if !targetInput}
-    <!-- <Exposition bind:showBase /> -->
-    <Exposition />
+    <!-- <Exposition /> -->
     <div class="flex justify-center pb-4 text-lg font-medium">1337px</div>
   {/if}
 
@@ -169,7 +141,6 @@
     {@const percentage = max === 0 ? 0.5 : rank / max}
     {@const deemphisized = `oklch(${0.5 - 0.2375 * percentage} 0 0)`}
     {@const dimmed = `oklch(${0.6 - 0.15 * percentage} 0 0)`}
-    <!-- {console.log(percentage)} -->
     <div
       class="flex relative"
       style:background-color={`oklch(${0.95 - 0.3 * percentage} ${0.04 + 0.02685 * percentage} 331.53)`}

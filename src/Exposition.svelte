@@ -1,5 +1,4 @@
 <script lang="ts">
-    // import Button from "$lib/components/ui/button/button.svelte";
     import {
         Popover,
         PopoverContent,
@@ -12,7 +11,7 @@
 </script>
 
 <div
-    class="max-w-224 mx-auto flex flex-col gap-8 text-neutral-800 px-4 md:px-8 py-8"
+    class="max-w-4xl mx-auto flex flex-col gap-8 text-neutral-800 px-4 md:px-8 py-8"
 >
     <header class="flex flex-col gap-4">
         <h1
@@ -25,7 +24,9 @@
         </p>
         <p class="text-center text-sm text-neutral-900">
             <Popover
-                ><PopoverTrigger class="underline decoration-dotted hover:text-fuchsia-700">
+                ><PopoverTrigger
+                    class="underline decoration-dotted hover:text-fuchsia-700"
+                >
                     In the new world of bracketless arbitrary Tailwind values</PopoverTrigger
                 ><PopoverContent
                     class="bg-foreground text-background text-xs text-balance rounded-md px-3 py-2 w-fit max-w-64"
@@ -48,15 +49,6 @@
             fewer stylesheet rules, more visual consistency, and less decision
             fatigue.
         </p>
-
-        <!-- <p>
-        Tailwind follows the common best practice of using <code>rem</code>
-        instead of <code>px</code>. A page’s base font size is, by definition,
-        <code>1rem</code>, and <code>1rem</code> is typically <code>16px</code>.
-        Thus, when thinking in <code>px</code>, it’s useful to keep
-        <code>16px</code> as a base unit in mind.
-      </p> -->
-
         <p>
             Using <RemPx px={16} /> as an anchor, Tailwind’s curated values included
             powers of two, with selected intermediate values. As the numbers got
@@ -149,49 +141,6 @@
             encounter <code>1337px</code>, I’ll probably nudge that to
             <code>1344px</code>.
         </p>
-        <h2 class="text-2xl text-neutral-900 text-center font-semibold">
-            Usage
-        </h2>
-        This site takes a target value and shows you that number’s successive base-2
-        roundings. Use the roundest one that still looks good.
-        <h3 class=" text-neutral-900 font-semibold">Input</h3>
-        You can enter rem, px, or Tailwind spacing units (quarter-rem).
-        <!-- <p>
-            <math class="font-mono">
-                <mfrac><mi>rem</mi><mn>4</mn></mfrac>
-            </math>
-            values are assumed unless there’s a [px | rem] suffix.
-        </p> -->
-        <h3 class=" text-neutral-900 font-semibold">Output</h3>
-        <p>
-            Rounder values appear farther to the left, have lighter backgrounds,
-            and have higher exponents. The blue sections let you visually
-            compare sizes for each row. If your browser window is wide enough,
-            they’ll display actual widths; otherwise, they’ll scale
-            proportionally. If a number is dimmed, it means there’s an equally
-            round or rounder number that’s closer to the target.
-            <!-- Below is what that looks like for 1337. -->
-            <!-- For fun, you can also explore rounding in
-            arbitrary bases;
-            <Button
-                variant="secondary"
-                size="xs"
-                class="text-sm"
-                onclick={() => (showBase = !showBase)}>click here</Button
-            > or press “b” to toggle that interface. -->
-        </p>
-
-        <!-- <p>
-            If you find this useful,
-            <a
-                rel="noreferrer"
-                class="underline"
-                target="_blank"
-                href="https://github.com/jfrancos/objectivelyround"
-                >please star the repo</a
-            >.
-        </p> -->
-
         <p class="text-xs" id="note-base-2-round">
             * Roundness is always relative to a base. In base 10, successive
             roundings of 1337 are 1340, 1300, and 1000: each step increases the
@@ -204,6 +153,22 @@
                 aria-label="Back to reference"
                 class="hover:text-fuchsia-700">↩</a
             >
+        </p>
+        <h2 class="text-2xl text-neutral-900 text-center font-semibold">
+            Usage
+        </h2>
+        This site takes a target value and shows you that number’s successive base-2
+        roundings. Use the roundest one that still looks good.
+        <h3 class=" text-neutral-900 font-semibold">Input</h3>
+        You can enter rem, px, or Tailwind spacing units (quarter-rem).
+        <h3 class=" text-neutral-900 font-semibold">Output</h3>
+        <p>
+            Rounder values appear farther to the left, have lighter backgrounds,
+            and have higher exponents. The blue sections let you visually
+            compare sizes for each row. If your browser window is wide enough,
+            they’ll display actual widths; otherwise, they’ll scale
+            proportionally. If a number is dimmed, it means there’s an equally
+            round or rounder number that’s closer to the target.
         </p>
         <h3 class=" text-neutral-900 font-semibold pt-4">Demonstration</h3>
     </section>
