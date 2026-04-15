@@ -132,7 +132,7 @@
 </header>
 <main class="flex-1">
   {#if !targetInput}
-    <!-- <Exposition /> -->
+    <Exposition />
     <div class="flex justify-center pb-4 text-lg font-medium">1337px</div>
   {/if}
 
