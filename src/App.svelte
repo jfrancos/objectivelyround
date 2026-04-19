@@ -1,5 +1,5 @@
 <script lang="ts">
-  // import { tabs } from "slidytabs";
+  import { tabs } from "slidytabs";
   import { onMount } from "svelte";
   import { Button } from "$lib/components/ui/button";
   import { Input } from "$lib/components/ui/input";
@@ -93,7 +93,7 @@
           }
         }
       />
-      <Tabs bind:value={scaleInput}>
+      <Tabs bind:value={scaleInput} {@attach tabs()}>
         <TabsList class="*:min-w-0 *:px-4">
           <!-- {#each scales as { label }} -->
           <TabsTrigger value="quarter-rem" aria-label="quarter-rem"

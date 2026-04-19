@@ -40,7 +40,7 @@
 	},
 	"dependencies": {
 		"@tailwindcss/vite": "^4.2.2",
-		"slidytabs": "^0.1.9",
+		"slidytabs": "^0.1.10",
 		"tailwindcss": "^4.2.2"
 	}
 }
